@@ -5,8 +5,13 @@ Daphne.controllers :sessions do
     render 'session/sign_in'
   end
 
+  get :login do
+    render 'sessions/login'
+  end
+
   get :destroy do
     set_current_account(nil)
-    redirect url(:index)
+    session.clear
+    redirect url(:root, :index)
   end
 end

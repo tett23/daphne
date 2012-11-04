@@ -19,7 +19,7 @@
                 %a{href: '/'}Home
               %li
                 -if login?
-                  %a{href: '#'}=current_account.name
+                  %a{href: '#'}=current.name
                 -else
                   %a{href: '/auth/twitter'}Login
     #wrap.container
