@@ -5,11 +5,11 @@
   %head
     %meta{charset: 'utf-8'}
     =stylesheet_link_tag 'bootstrap.min', 'bootstrap-responsive.min', 'common'
-    =javascript_include_tag 'jquery', 'jquery-ujs', 'bootstrap.min', 'application'
+    =javascript_include_tag 'jquery', 'jquery-ujs', 'bootstrap.min', 'bootstrap-dropdown', 'application'
   %body
-    .navbar.navbar-inverse.navbar-fixed-top
+    .navbar.navbar-inverse.navbar-fixed-top.topbar
       .navbar-inner
-        .container
+        .container-fluid
           %a.btn.btn-navbar{:'data-toggle'=>'collapse', :'data-target'=>'.nav-collapse'}
             %span.icon-bar
           %a.brand daphne
@@ -17,13 +17,25 @@
             %ul.nav
               %li
                 %a{href: '/'}Home
-              %li
-                -if login?
-                  %a{href: '#'}=current.name
-                -else
+            %ul.nav.pull-right
+              -if login?
+                %li.dropdown
+                  %a{:href=>'#', :role=>:button, :class=>'dropdown-toggle', :'data-toggle'=>'dropdown'}=current.name
+                  %ul.dropdown-menu{:role=>:menu}
+                    %li
+                      %a{} settings
+                    %li.divider
+                    %li
+                      %a{:href=>url(:sessions, :destroy)} logout
+              -else
+                %li
                   %a{href: '/auth/twitter'}Login
-    #wrap.container
-      .row
-        =flash_tag :notice, :class=>'text-info'
-      =yield
+    #wrap.container-fluid
+      -if login?
+        =partial 'parts/sidebar'
+        .row
+          =flash_tag :notice, :class=>'text-info'
+          =yield
+      -else
+        =yield
 

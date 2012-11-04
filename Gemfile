@@ -22,6 +22,11 @@ gem 'dm-core'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'rack-datamapper-session'
+gem 'guard'
+gem 'guard-shell'
+gem 'guard-coffeescript'
+gem 'rb-inotify'
+gem 'coffee-filter'
 
 # Test requirements
 gem 'rspec', :group => "test"
