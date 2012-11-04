@@ -1,10 +1,45 @@
+# coding: utf-8
+
+require './lib/twitter_keys'
+
 class Daphne < Padrino::Application
   register SassInitializer
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
+  register Padrino::Admin::AccessControl
+  register OmniauthInitializer
 
   enable :sessions
+
+  set :login_page, '/'
+
+  access_control.roles_for :any do |role|
+  end
+
+  access_control.roles_for :users do |role|
+  end
+
+  get :index do
+    haml <<-HAML.gsub(/^ {6}/, '')
+      Login with
+      or
+      =link_to('Twitter',  '/auth/twitter')
+    HAML
+  end
+
+  get :destroy do
+    set_current_account(nil)
+    redirect url(:index)
+  end
+
+  get :auth, :map=>'/auth/:provider/callback' do
+    auth    = request.env["omniauth.auth"]
+    account = Account.first(:provider=>auth['provider'], :uid=>auth['uid']) ||
+              Account.create_with_omniauth(auth)
+    set_current_account(account)
+    redirect "http://" + request.env["HTTP_HOST"] + url(:profile)
+  end
 
   ##
   # Caching support

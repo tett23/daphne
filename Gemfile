@@ -19,6 +19,10 @@ gem 'dm-constraints'
 gem 'dm-aggregates'
 gem 'dm-core'
 
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'rack-datamapper-session'
+
 # Test requirements
 gem 'rspec', :group => "test"
 gem 'rack-test', :require => "rack/test", :group => "test"
