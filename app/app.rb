@@ -12,7 +12,7 @@ class Daphne < Padrino::Application
 
   enable :sessions
 
-  set :login_page, '/'
+  set :login_page, '/sessions/login'
 
   access_control.roles_for :any do |role|
   end

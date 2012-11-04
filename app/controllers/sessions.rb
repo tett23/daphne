@@ -1,6 +1,6 @@
 # coding: utf-8
 
-Daphne.controllers :session do
+Daphne.controllers :sessions do
   get :sign_in do
     render 'session/sign_in'
   end
