@@ -1,0 +1,6 @@
+-# coding: utf-8
+
+%h2 新規プロジェクト発行
+
+-form_for :project, url(:projects, :create) do |f|
+  =partial "projects/form", :locals => { :f => f }

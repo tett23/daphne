@@ -1,0 +1,15 @@
+-# coding: utf-8
+
+.form-horizontal
+  .control-group
+    %label.control-label タイトル
+    .controls
+      =f.text_field :title
+  .control-group
+    %label.control-label 説明
+    .controls
+      =f.text_area :description
+  .control-group
+    .controls
+      =f.submit pat(:save), :class => 'btn btn-primary'
+      =f.submit pat(:cancel), :onclick => "window.location='#{url(:root, :index)}';return false", :class => :btn

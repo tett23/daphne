@@ -1,10 +1,11 @@
-class Issue
+class Project
   include DataMapper::Resource
 
   # property <name>, <type>
   property :id, Serial
   property :title, String
   property :description, Text
+  property :color, String
 
-  belongs_to :project, :required=>false
+  has n, :issues
 end

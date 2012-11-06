@@ -1,0 +1,8 @@
+-# coding: utf-8
+
+%h2
+  プロジェクト情報編集:
+  =@project.title
+
+-form_for :project, url(:projects, :update, :id=>@project.id), :method=>:put do |f|
+  =partial "projects/form", :locals => { :f => f }
