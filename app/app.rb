@@ -20,6 +20,12 @@ class Daphne < Padrino::Application
   access_control.roles_for :users do |role|
   end
 
+  before do
+    if login?
+      @projects = Project.all
+    end
+  end
+
   error 404 do
     render 'errors/404'
   end

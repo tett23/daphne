@@ -3,4 +3,8 @@
 .span3
   .well.sidebar-nav
     %ul.nav.nav-list
-      %li.nav-header sidebar
+      -if login?
+        %li.nav-header プロジェクト
+        -@projects.each do |project|
+          %li=project.title
+        =link_to 'プロジェクトを追加する', url(:projects, :new)
