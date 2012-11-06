@@ -3,10 +3,14 @@
 Daphne.controllers :projects do
   get :new do
     @project = Project.new
+    @color_list = Color.select_list
+
     render 'projects/new'
   end
 
   post :create do
+    params[:project][:color_id] = nil if params[:project][:color_id].blank?
+
     @project = Project.new(params[:project])
     @project.account_id = current.id
 
@@ -14,21 +18,28 @@ Daphne.controllers :projects do
       flash[:success] = 'Project was successfully created.'
       redirect url(:projects, :edit, :id => @project.id)
     else
+      @color_list = Color.select_list
       render 'projects/new'
     end
   end
 
   get :edit, :with => :id do
     @project = Project.get(params[:id])
+    @color_list = Color.select_list
+
     render 'projects/edit'
   end
 
   put :update, :with => :id do
     @project = Project.get(params[:id])
+
+    params[:project][:color_id] = nil if params[:project][:color_id].blank?
+
     if @project.update(params[:project])
       flash[:success] = 'Project was successfully updated.'
       redirect url(:projects, :edit, :id => @project.id)
     else
+      @color_list = Color.select_list
       render 'projects/edit'
     end
   end

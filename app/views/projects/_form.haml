@@ -10,6 +10,11 @@
     .controls
       =f.text_area :description
   .control-group
+    %label.control-label 色
+    .controls
+      =f.error_message_on :color_id
+      =f.select :color_id, :options=>@color_list, :include_blank=>true
+  .control-group
     .controls
       =f.submit pat(:save), :class => 'btn btn-primary'
       =f.submit pat(:cancel), :onclick => "window.location='#{url(:root, :index)}';return false", :class => :btn
