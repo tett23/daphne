@@ -4,11 +4,15 @@
   %thead
     %tr
       %th #
+      %th プロジェクト
       %th タイトル
       %th 概要
+      %th 操作
   %tbody
     -issues.each do |issue|
       %tr
         %td=issue.id
+        %td=issue.project.title unless issue.project.nil?
         %td=issue.title
         %td=truncate issue.description, :length=>40
+        %td=link_to '編集', url(:issues, :edit, :id=>issue.id)
