@@ -1,0 +1,8 @@
+-# coding: utf-8
+
+%h2
+  issue編集:
+  =@issue.title
+
+-form_for :issue, url(:issues, :update, :id=>@issue.id), :method=>:put do |f|
+  =partial "issues/form", :locals => { :f => f }

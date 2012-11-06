@@ -5,7 +5,7 @@
   %head
     %meta{charset: 'utf-8'}
     =stylesheet_link_tag 'bootstrap.min', 'bootstrap-responsive.min', 'common'
-    =javascript_include_tag 'jquery', 'jquery-ujs', 'bootstrap.min', 'bootstrap-dropdown', 'application'
+    =javascript_include_tag 'jquery', 'jquery-ujs', 'bootstrap.min', 'bootstrap-dropdown', 'application', 'buttons'
   %body
     .navbar.navbar-inverse.navbar-fixed-top.topbar
       .navbar-inner
@@ -14,28 +14,18 @@
             %span.icon-bar
           %a.brand daphne
           .nav-collapse.collapse
-            %ul.nav
-              %li
-                %a{href: '/'}Home
-            %ul.nav.pull-right
-              -if login?
-                %li.dropdown
-                  %a{:href=>'#', :role=>:button, :class=>'dropdown-toggle', :'data-toggle'=>'dropdown'}=current.name
-                  %ul.dropdown-menu{:role=>:menu}
-                    %li
-                      %a{} settings
-                    %li.divider
-                    %li
-                      %a{:href=>url(:sessions, :destroy)} logout
-              -else
-                %li
-                  %a{href: '/auth/twitter'}Login
+            =partial 'parts/header_menu'
     #wrap.container-fluid
       -if login?
-        =partial 'parts/sidebar'
-        .row
-          =flash_tag :notice, :class=>'text-info'
-          =yield
+        .row-fluid
+          =partial 'parts/sidebar'
+          .span9
+            =flash_tag :success, :class=>'text-success'
+            =flash_tag :info, :class=>'text-info'
+            =flash_tag :error, :class=>'text-error'
+            =flash_tag :warning, :class=>'text-warning'
+            =yield
       -else
-        =yield
-
+        .row
+          =yield
+    =partial 'parts/issue_form'

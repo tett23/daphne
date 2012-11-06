@@ -1,0 +1,6 @@
+-# coding: utf-8
+
+%h2 新規issue発行
+
+-form_for :issue, url(:issues, :create) do |f|
+  =partial "issues/form", :locals => { :f => f }

@@ -1,0 +1,21 @@
+-# coding: utf-8
+
+#issue-form.modal.hide.fade{:role=>'dialog', :tabindex=>'-1', :'aria-labelledby'=>'issue-form', :'aria-hidden'=>true}
+  =form_for 'issue', url(:issues, :create) do |f|
+    .modal-header
+      %button.close{:type=>'button', :'data-dismiss'=>'modal', :'aria-hidden'=>true}×
+      %h3
+        新規issue発行
+    .modal-body
+      .form-horizontal
+        .control-group
+          %label.control-label タイトル
+          .controls
+            =f.text_field :title
+        .control-group
+          %label.control-label 本文
+          .controls
+            =f.text_area :description
+    .modal-footer
+      %a.btn{:href=>'#', :'data-dismiss'=>'modal', :'aria-hidden'=>'true'} close
+      =f.submit 'save', :class=>'btn btn-primary'

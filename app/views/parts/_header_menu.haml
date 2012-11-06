@@ -1,0 +1,20 @@
+-# coding: utf-8
+
+%ul.nav
+  %li
+    %a{href: '/'}Home
+%ul.nav.pull-right
+  -if login?
+    %li
+      %a#new-issue.btn.icon-pencil{:href=>'#issue-form', :role=>'button', :'data-toggle'=>'modal'}
+    %li.dropdown
+      %a{:href=>'#', :role=>:button, :class=>'dropdown-toggle', :'data-toggle'=>'dropdown'}=current.name
+      %ul.dropdown-menu{:role=>:menu}
+        %li
+          %a{} settings
+        %li.divider
+        %li
+          %a{:href=>url(:sessions, :destroy)} logout
+  -else
+    %li
+      %a{href: '/auth/twitter'}Login
