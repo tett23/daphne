@@ -9,6 +9,7 @@ Daphne.controllers :issues do
 
   post :create do
     @issue = Issue.new(params[:issue])
+    @issue.account_id = current.id
 
     if @issue.save
       flash[:success] = 'Issue was successfully created.'

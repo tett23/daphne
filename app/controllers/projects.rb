@@ -8,6 +8,7 @@ Daphne.controllers :projects do
 
   post :create do
     @project = Project.new(params[:project])
+    @project.account_id = current.id
 
     if @project.save
       flash[:success] = 'Project was successfully created.'

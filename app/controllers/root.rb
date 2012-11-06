@@ -1,7 +1,7 @@
 Daphne.controllers :root do
 
   get :index, :map=>'/' do
-    @issues = Issue.all
+    @issues = Issue.list(current.id)
 
     render 'root/index'
   end

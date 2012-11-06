@@ -22,7 +22,7 @@ class Daphne < Padrino::Application
 
   before do
     if login?
-      @projects = Project.all
+      @projects = Project.list(current.id)
     end
   end
 
