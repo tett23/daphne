@@ -4,11 +4,18 @@
   .control-group
     %label.control-label タイトル
     .controls
+      =f.error_message_on :title
       =f.text_field :title
   .control-group
     %label.control-label 本文
     .controls
+      =f.error_message_on :description
       =f.text_area :description
+  .control-group
+    %label.control-label プロジェクト
+    .controls
+      =f.error_message_on :project_id
+      =f.select :project_id, :options=>@select_list, :include_blank=>true
   .control-group
     .controls
       =f.submit pat(:save), :class => 'btn btn-primary'
