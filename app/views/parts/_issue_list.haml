@@ -10,7 +10,8 @@
       %th 操作
   %tbody
     -issues.each do |issue|
-      %tr
+      -color_code = color(issue)
+      %tr{:style=>'background-color: '+(color_code.nil? ? 'inherit' : '#'+color_code)}
         %td=issue.id
         %td=issue.project.title unless issue.project.nil?
         %td=issue.title
