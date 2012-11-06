@@ -1,7 +1,7 @@
 -# coding: utf-8
 
 #issue-form.modal.hide.fade{:role=>'dialog', :tabindex=>'-1', :'aria-labelledby'=>'issue-form', :'aria-hidden'=>true}
-  =form_for 'issue', url(:issues, :create) do |f|
+  =form_for :issue, url(:issues, :create) do |f|
     .modal-header
       %button.close{:type=>'button', :'data-dismiss'=>'modal', :'aria-hidden'=>true}×
       %h3
