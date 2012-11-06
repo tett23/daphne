@@ -19,7 +19,6 @@ Daphne.controllers :issues do
   end
 
   get :edit, :with => :id do
-    p params
     @issue = Issue.get(params[:id])
     render 'issues/edit'
   end
