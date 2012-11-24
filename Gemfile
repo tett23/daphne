@@ -27,6 +27,7 @@ gem 'guard-shell'
 gem 'guard-coffeescript'
 gem 'rb-inotify'
 gem 'coffee-filter'
+gem 'RedCloth'
 
 # Test requirements
 gem 'rspec', :group => "test"
