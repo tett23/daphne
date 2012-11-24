@@ -5,12 +5,17 @@
     %label.control-label タイトル
     .controls
       =f.error_message_on :title
-      =f.text_field :title
+      =f.text_field :title, {:class=>'span10'}
   .control-group
     %label.control-label 本文
     .controls
       =f.error_message_on :description
-      =f.text_area :description
+      =f.text_area :description, {:class=>'span10', :rows=>10}
+  .control-group
+    %label.control-label wiki
+    .controls
+      =f.error_message_on :wiki
+      =f.text_area :wiki, {:class=>'span10', :rows=>10}
   .control-group
     %label.control-label プロジェクト
     .controls

@@ -5,5 +5,9 @@
     =button_link('編集', url(:issues, :edit, :id=>@issue.id), :icon=>'icon-pencil')
   %h2=@issue.title
 
+%h3 説明
 =@issue.description
-=@issue.wiki
+
+%h3 wiki
+.wiki.well
+  =wiki_format @issue.wiki
