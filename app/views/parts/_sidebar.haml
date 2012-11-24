@@ -6,5 +6,5 @@
       -if login?
         %li.nav-header プロジェクト
         -@projects.each do |project|
-          %li=link_to project.title, url(:projects, :edit, :id=>project.id)
+          %li=link_to project.title, url(:projects, :show, :id=>project.id)
         =link_to 'プロジェクトを追加する', url(:projects, :new)
