@@ -2,7 +2,7 @@
 
 Daphne.helpers do
   def login?
-    !current_account.nil?
+    return false if current_account.nil?
 
     !session[:account_id].nil?
   end
