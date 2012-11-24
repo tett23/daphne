@@ -6,7 +6,8 @@
 %ul.nav.pull-right
   -if logged_in?
     %li
-      %a#new-issue.btn.icon-pencil{:href=>'#issue-form', :role=>'button', :'data-toggle'=>'modal'}
+      %a#new-issue.btn.btn-small{:href=>'#issue-form', :role=>'button', :'data-toggle'=>'modal', :style=>'padding: 2px 10px;'}
+        %i{:class=>'icon-pencil'}
     %li.dropdown
       %a{:href=>'#', :role=>:button, :class=>'dropdown-toggle', :'data-toggle'=>'dropdown'}=current_account.name
       %ul.dropdown-menu{:role=>:menu}
