@@ -16,6 +16,10 @@
           %label.control-label 本文
           .controls
             =f.text_area :description
+        .control-group
+          %label.control-label プロジェクト
+          .controls
+            =f.select :project_id, :options=>@select_list, :include_blank=>true
     .modal-footer
       %a.btn{:href=>'#', :'data-dismiss'=>'modal', :'aria-hidden'=>'true'} close
       =f.submit 'save', :class=>'btn btn-primary'
