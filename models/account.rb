@@ -17,13 +17,11 @@ class Account
       :role => :users
     })
 
-    return account.first if Array == account.class
-
     account
   end
 
   # omniauthが使用するORMの変更がうまくいくなら直すこと
   def self.find_by_id(id)
-    first(id)
+    get(id)
   end
 end
