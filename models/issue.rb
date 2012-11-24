@@ -12,4 +12,8 @@ class Issue
   def self.list(account_id)
     all(:account_id=>account_id)
   end
+
+  def self.project(project_id)
+    all(:project_id=>project_id)
+  end
 end

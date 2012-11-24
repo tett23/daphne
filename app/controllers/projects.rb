@@ -8,6 +8,15 @@ Daphne.controllers :projects do
     render 'projects/new'
   end
 
+  get :show do
+    @project = Project.get(params[:id])
+    error 404 if @project.nil?
+
+    @issues = Issue.project(params[:id])
+
+    render 'projects/show'
+  end
+
   post :create do
     params[:project][:color_id] = nil if params[:project][:color_id].blank?
 

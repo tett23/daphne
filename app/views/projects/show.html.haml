@@ -1,0 +1,8 @@
+-# coding: utf-8
+
+%h2=@project.title
+
+%div
+  =@project.description
+
+=partial 'parts/issue_list', :locals=>{:issues=>@issues}
