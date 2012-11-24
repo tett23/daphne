@@ -29,4 +29,22 @@ EOS
 
     Haml::Engine.new(haml).render
   end
+
+  def breadcrumbs
+    return '' if @breadcrumbs.nil?
+
+    @breadcrumbs.map do |item|
+      link_to(item[:title], item[:url])
+    end.join('&nbsp;/&nbsp;')
+  end
+
+  def add_breadcrumbs(title, url)
+    @breadcrumbs = [] if @breadcrumbs.nil?
+
+    @breadcrumbs << {:title=>title, :url=>url}
+  end
+
+  def clear_breadcrumbs
+    @breadcrumbs = []
+  end
 end
