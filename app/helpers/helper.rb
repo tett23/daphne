@@ -19,4 +19,14 @@ Daphne.helpers do
 
     return nil
   end
+
+  def button_link(str, url, option={})
+    haml = <<EOS
+%a{:href=>'#{url}', :class=>'btn #{option[:button_class]}'}
+  %i{:class=>'#{option[:icon]}'}
+  #{str}
+EOS
+
+    Haml::Engine.new(haml).render
+  end
 end
