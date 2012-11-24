@@ -5,6 +5,7 @@ class Issue
   property :id, Serial
   property :title, String
   property :description, Text
+  property :wiki, Text
 
   belongs_to :account, :required=>false
   belongs_to :project, :required=>false
