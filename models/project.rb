@@ -10,6 +10,10 @@ class Project
   has n, :issues
   belongs_to :color, :required=>false
 
+  def self.detail(id)
+    get(id)
+  end
+
   def self.list(account_id)
     all(:account_id=>account_id)
   end
