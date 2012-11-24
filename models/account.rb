@@ -17,7 +17,7 @@ class Account
       :role => :users
     })
 
-    account = account.first if Array == account.class
+    return account.first if Array == account.class
 
     account
   end
