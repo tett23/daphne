@@ -23,11 +23,12 @@ class Daphne < Padrino::Application
   end
 
   access_control.roles_for :users do |role|
+    role.allow '/sessions'
   end
 
   before do
-    if login?
-      @projects = Project.list(current.id)
+    if logged_in?
+      @projects = Project.list(current_account.id)
     end
   end
 

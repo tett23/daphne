@@ -1,16 +1,6 @@
 # coding: utf-8
 
 Daphne.helpers do
-  def login?
-    return false if current_account.blank?
-
-    !session[:account_id].nil?
-  end
-
-  def current
-    current_account.first
-  end
-
   def color(item)
     case item
     when Issue

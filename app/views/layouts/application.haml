@@ -16,7 +16,7 @@
           .nav-collapse.collapse
             =partial 'parts/header_menu'
     #wrap.container-fluid
-      -if login?
+      -if logged_in?
         .row-fluid
           =partial 'parts/sidebar'
           .span9

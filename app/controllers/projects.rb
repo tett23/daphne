@@ -21,7 +21,7 @@ Daphne.controllers :projects do
     params[:project][:color_id] = nil if params[:project][:color_id].blank?
 
     @project = Project.new(params[:project])
-    @project.account_id = current.id
+    @project.account_id = current_account.id
 
     if @project.save
       flash[:success] = 'Project was successfully created.'

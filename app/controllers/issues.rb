@@ -4,7 +4,7 @@ Daphne.controllers :issues do
 
   get :new do
     @issue = Issue.new
-    @select_list = Project.select_list(current.id)
+    @select_list = Project.select_list(current_account.id)
     render 'issue/new'
   end
 
@@ -19,20 +19,20 @@ Daphne.controllers :issues do
     params[:issue][:project_id] = nil if params[:issue][:project_id].blank?
 
     @issue = Issue.new(params[:issue])
-    @issue.account_id = current.id
+    @issue.account_id = current_account.id
 
     if @issue.save
       flash[:success] = 'Issue was successfully created.'
       redirect url(:issues, :edit, :id => @issue.id)
     else
-      @select_list = Project.select_list(current.id)
+      @select_list = Project.select_list(current_account.id)
       render 'issues/new'
     end
   end
 
   get :edit, :with => :id do
     @issue = Issue.get(params[:id])
-    @select_list = Project.select_list(current.id)
+    @select_list = Project.select_list(current_account.id)
     render 'issues/edit'
   end
 
@@ -45,7 +45,7 @@ Daphne.controllers :issues do
       flash[:success] = 'Issue was successfully updated.'
       redirect url(:issues, :edit, :id => @issue.id)
     else
-      @select_list = Project.select_list(current.id)
+      @select_list = Project.select_list(current_account.id)
       render 'issues/edit'
     end
   end
