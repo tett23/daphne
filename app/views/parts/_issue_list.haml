@@ -4,8 +4,8 @@
   %thead
     %tr
       %th #
-      %th プロジェクト
       %th タイトル
+      %th プロジェクト
       %th 概要
       %th 操作
   %tbody
@@ -13,7 +13,7 @@
       -color_code = color(issue)
       %tr{:style=>'background-color: '+(color_code.nil? ? 'inherit' : '#'+color_code)}
         %td=issue.id
-        %td=issue.project.title unless issue.project.nil?
         %td=issue.title
+        %td=issue.project.title unless issue.project.nil?
         %td=truncate issue.description, :length=>40
         %td=link_to '編集', url(:issues, :edit, :id=>issue.id)
