@@ -1,5 +1,9 @@
 -# coding: utf-8
 
-%h2=@issue.title
+%div
+  %div.pull-right
+    =button_link('編集', url(:issues, :edit, :id=>@issue.id), :icon=>'icon-pencil')
+  %h2=@issue.title
+
 =@issue.description
 =@issue.wiki
