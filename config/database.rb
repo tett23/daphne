@@ -13,7 +13,7 @@ DataMapper.logger = logger
 DataMapper::Property::String.length(255)
 
 case Padrino.env
-  when :development then DataMapper.setup(:default, "sqlite3://" + Padrino.root('db', "daphne_development.db"))
-  when :production  then DataMapper.setup(:default, "sqlite3://" + Padrino.root('db', "daphne_production.db"))
-  when :test        then DataMapper.setup(:default, "sqlite3://" + Padrino.root('db', "daphne_test.db"))
+  when :development then DataMapper.setup(:default, 'mysql://tett23:password@localhost/daphne_development')
+  when :production  then DataMapper.setup(:default, 'mysql://tett23:password@localhost/daphne_production')
+  when :test        then DataMapper.setup(:default, 'mysql://tett23:password@localhost/daphne_test')
 end
