@@ -31,4 +31,12 @@ class Wiki
 
     wiki
   end
+
+  def self.exist?(account_id, project_id, title)
+    !first(
+      account_id: account_id,
+      project_id: project_id,
+      title: title
+    ).nil?
+  end
 end
