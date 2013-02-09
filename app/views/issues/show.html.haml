@@ -6,8 +6,9 @@
   %h2=@issue.title
 
 %h3 説明
-=@issue.description
+=wiki_format @issue.description
 
-%h3 wiki
-%section.wiki.well
-  =wiki_format @issue.wiki
+-unless @issue.wiki.blank?
+  %h3 wiki
+  %section.wiki.well
+    =wiki_format @issue.wiki
