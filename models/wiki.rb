@@ -11,7 +11,7 @@ class Wiki
   belongs_to :project, :required=>false
 
   def self.detail(account_id, project_id, title)
-    first(
+    first_or_create(
       account_id: account_id,
       project_id: project_id,
       title: title

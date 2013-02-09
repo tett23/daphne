@@ -7,13 +7,13 @@ Daphne.controllers :wiki, :parent=>:projects do
     render 'wiki/show'
   end
 
-  get :show, :with=>:title do
+  get :show, :map=>'/projects/:project_id/wiki/:title' do
     @wiki = Wiki.detail(current_account.id, params[:project_id], params[:title])
 
     render 'wiki/show'
   end
 
-  get :edit, :with=>:title do
+  get :edit, :map=>'/projects/:project_id/wiki/:title/edit' do
     @wiki = Wiki.detail(current_account.id, params[:project_id], params[:title])
 
     render 'wiki/edit'
