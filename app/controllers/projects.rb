@@ -8,7 +8,7 @@ Daphne.controllers :projects do
     render 'projects/new'
   end
 
-  get :show do
+  get :show, :with => :id do
     @project = Project.get(params[:id])
     error 404 if @project.nil?
 
