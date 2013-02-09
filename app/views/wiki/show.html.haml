@@ -1,0 +1,10 @@
+-# coding: utf-8
+
+=partial 'parts/wiki_menu', :locals=>{:wiki=>@wiki}
+
+-if @wiki.body.blank?
+  -form_for :wiki, url(:wiki, :update, :project_id=>@wiki.project.id, :title=>@wiki.project.title) do |f|
+    =partial 'wiki/form', :locals => {:f=>f, :wiki=>@wiki}
+-else
+  %article.wiki
+    =wiki_format @wiki.body

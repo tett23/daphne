@@ -1,0 +1,12 @@
+-# coding: utf-8
+
+-wiki_body = wiki.body.blank? ? "h1. #{wiki.project.title}" : wiki.body
+
+%fieldset
+  %legend Wiki
+  %div
+    =f.error_message_on :body
+    =f.text_area :body, :value=>wiki_body, :class=>'span10', :rows=>20
+
+  =f.submit pat(:save), :class => 'btn btn-primary'
+  =f.submit pat(:cancel), :onclick => "window.location='#{url(:wiki, :index, :project_id=>wiki.project.id)}';return false", :class => :btn
