@@ -25,8 +25,7 @@
             =flash_tag :info, :class=>'text-info'
             =flash_tag :error, :class=>'text-error'
             =flash_tag :warning, :class=>'text-warning'
-            -if !@project.nil? || (!@issue.nil? && !@issue.project.nil?)
-              =partial 'parts/project_nav', :locals=>{:project=>@project || @issue.project}
+            =project_nav
             =yield
       -else
         .row-fluid
