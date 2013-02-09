@@ -2,7 +2,8 @@
 
 %h2=@project.title
 
-%div
-  =@project.description
+-unless @project.description.blank?
+  %div
+    =@project.description
 
 =partial 'parts/issue_list', :locals=>{:issues=>@issues}
