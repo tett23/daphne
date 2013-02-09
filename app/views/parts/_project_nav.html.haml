@@ -1,0 +1,7 @@
+-# coding: utf-8
+
+.navbar
+  .navbar-inner
+    =link_to project.title, url(:projects, :show, :id=>project.id), :class=>:brand
+    %ul.nav
+      %li=link_to :wiki, url(:wiki, :index, :project_id=>project.id)
