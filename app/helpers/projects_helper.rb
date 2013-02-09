@@ -2,7 +2,7 @@
 
 Daphne.helpers do
   def project_nav
-    if !@project.nil?
+    if !@project.nil? && !@project.id.nil?
       return partial 'parts/project_nav', :locals=>{:project=>@project}
     end
     if !@issue.nil? && !@issue.project.nil?
