@@ -1,5 +1,13 @@
 -# coding: utf-8
 
+:coffeescript
+  $ ->
+    $('#issue_new_header').keydown (e) ->
+      if e.ctrlKey && e.keyCode == 13 # ctrl+enter
+        console.log e.ctrlKey, e.keyCode
+        $('#issue-form form').submit()
+
+
 #issue-form.modal.hide.fade{:role=>'dialog', :tabindex=>'-1', :'aria-labelledby'=>'issue-form', :'aria-hidden'=>true}
   =form_for :issue, url(:issues, :create) do |f|
     .modal-header
@@ -8,6 +16,8 @@
         新規issue発行
     .modal-body
       =f.text_area :body, :value=>'', :id=>:issue_new_header
+      %p
+        %small ctrl+enterで保存します
     .modal-footer
       %a.btn{:href=>'#', :'data-dismiss'=>'modal', :'aria-hidden'=>'true'} close
       =f.submit 'save', :class=>'btn btn-primary'
