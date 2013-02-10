@@ -19,10 +19,8 @@ Daphne.controllers :issues do
   end
 
   post :create do
-    params[:issue][:project_id] = nil if params[:issue][:project_id].blank?
-
-    @issue = Issue.new(params[:issue])
-    @issue.account_id = current_account.id
+    issue = Issue.parse_text(current_account.id, params[:issue][:body])
+    @issue = Issue.new(issue)
 
     if @issue.save
       flash[:success] = "タスク「#{@issue.title}」を作成しました"

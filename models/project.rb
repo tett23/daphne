@@ -23,4 +23,11 @@ class Project
       [r.title, r.id]
     end
   end
+
+  def self.search(account_id, title)
+    all(
+      :account_id => account_id,
+      :title.like => "%#{title}%"
+    )
+  end
 end

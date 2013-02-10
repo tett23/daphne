@@ -7,19 +7,7 @@
       %h3
         新規issue発行
     .modal-body
-      .form-horizontal
-        .control-group
-          %label.control-label タイトル
-          .controls
-            =f.text_field :title, :value=>''
-        .control-group
-          %label.control-label 本文
-          .controls
-            =f.text_area :description, :value=>''
-        .control-group
-          %label.control-label プロジェクト
-          .controls
-            =f.select :project_id, :options=>@select_list, :include_blank=>true, :selected=>nil, :value=>nil
+      =f.text_area :body, :value=>'', :id=>:issue_new_header
     .modal-footer
       %a.btn{:href=>'#', :'data-dismiss'=>'modal', :'aria-hidden'=>'true'} close
       =f.submit 'save', :class=>'btn btn-primary'
