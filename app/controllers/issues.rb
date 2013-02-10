@@ -63,4 +63,27 @@ Daphne.controllers :issues do
     redirect url(:issues, :index)
   end
 
+  put :status_close, :with=>:id do
+    @issue = Issue.detail(params[:id])
+    return error 404 if @issue.nil?
+
+    if @issue.status_close
+      flash[:success] = "タスク「#{@issue.title}」を完了しました"
+    else
+      flash[:error] = "タスク「#{@issue.title}」を完了できませんでした"
+    end
+    redirect url(:issues, :show, :id => @issue.id)
+  end
+
+  put :status_new, :with=>:id do
+    @issue = Issue.detail(params[:id])
+    return error 404 if @issue.nil?
+
+    if @issue.status_new
+      flash[:success] = "タスク「#{@issue.title}」を未完了にしました"
+    else
+      flash[:error] = "タスク「#{@issue.title}」を未完了にできませんでした"
+    end
+    redirect url(:issues, :show, :id => @issue.id)
+  end
 end
