@@ -20,12 +20,12 @@
         .row-fluid
           =partial 'parts/sidebar'
           .span9
+            =project_nav
             =breadcrumbs
             =flash_tag :success, :class=>'text-success'
             =flash_tag :info, :class=>'text-info'
             =flash_tag :error, :class=>'text-error'
             =flash_tag :warning, :class=>'text-warning'
-            =project_nav
             =yield
       -else
         .row-fluid
