@@ -24,7 +24,7 @@ Daphne.controllers :issues do
 
     if @issue.save
       flash[:success] = "タスク「#{@issue.title}」を作成しました"
-      redirect url(:issues, :edit, :id => @issue.id)
+      redirect url(:issues, :show, :id => @issue.id)
     else
       @select_list = Project.select_list(current_account.id)
       render 'issues/new'
