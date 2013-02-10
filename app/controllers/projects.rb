@@ -14,6 +14,8 @@ Daphne.controllers :projects do
 
     @issues = Issue.project(params[:id])
 
+    add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))
+
     render 'projects/show'
   end
 
