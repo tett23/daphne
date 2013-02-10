@@ -3,17 +3,16 @@
 %table.table.table.striped
   %thead
     %tr
-      %th #
-      %th プロジェクト
-      %th タイトル
+      %th id
+      %th プロジェクト#タイトル
       %th 概要
-      %th 操作
   %tbody
     -issues.each do |issue|
       -color_code = color(issue)
       %tr{:style=>'background-color: '+(color_code.nil? ? 'inherit' : '#'+color_code)}
         %td=issue.id
-        %td=link_to issue.project.title, url(:projects, :show, :id=>issue.project.id) unless issue.project.nil?
-        %td=link_to issue.title, url(:issues, :show, :id=>issue.id)
+        %td
+          -project_title = link_to(issue.project.title, url(:projects, :show, :id=>issue.project.id)) unless issue.project.nil?
+          -issue_title = link_to(issue.title, url(:issues, :show, :id=>issue.id))
+          =[project_title, issue_title].join('#')
         %td=truncate issue.description, :length=>40
-        %td=link_to '編集', url(:issues, :edit, :id=>issue.id)
