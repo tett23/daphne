@@ -2,6 +2,9 @@
 
 :coffeescript
   $ ->
+    $('#issue-form').on 'shown', ->
+      $('#issue_new_header').focus()
+
     $('#issue_new_header').keydown (e) ->
       if e.ctrlKey && e.keyCode == 13 # ctrl+enter
         console.log e.ctrlKey, e.keyCode
