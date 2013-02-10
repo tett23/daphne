@@ -23,10 +23,6 @@ class Issue
     all(options)
   end
 
-  def self.project(project_id)
-    all(:project_id=>project_id)
-  end
-
   def self.detail(id)
     get(id)
   end
