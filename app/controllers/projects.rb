@@ -36,6 +36,9 @@ Daphne.controllers :projects do
     @project = Project.get(params[:id])
     @color_list = Color.select_list
 
+    add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))
+    add_breadcrumbs('編集', url(:projects, :edit, :id=>@project.id))
+
     render 'projects/edit'
   end
 

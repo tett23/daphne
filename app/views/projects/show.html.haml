@@ -1,6 +1,11 @@
 -# coding: utf-8
 
-%h2=@project.title
+%div
+  .pull-right
+    .btn-toolbar
+      .btn-group
+        =button_link('編集', url(:projects, :edit, :id=>@project.id), :icon=>'icon-edit')
+  %h2=@project.title
 
 -unless @project.description.blank?
   %div
