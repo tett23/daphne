@@ -13,8 +13,14 @@ class Issue
   belongs_to :project, :required=>false
   belongs_to :issue_status
 
-  def self.list(account_id)
-    all(:account_id=>account_id)
+  def self.list(account_id, options={})
+    default = {
+      issue_status_id: 1 # new
+    }
+    options = default.merge(options)
+    options[:account_id] = account_id
+
+    all(options)
   end
 
   def self.project(project_id)
