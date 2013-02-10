@@ -22,10 +22,10 @@
           .span9
             =project_nav
             =breadcrumbs
-            =flash_tag :success, :class=>'text-success'
-            =flash_tag :info, :class=>'text-info'
-            =flash_tag :error, :class=>'text-error'
-            =flash_tag :warning, :class=>'text-warning'
+            =flash_tag :success, :class=>'alert alert-success'
+            =flash_tag :info, :class=>'alert alert-info'
+            =flash_tag :error, :class=>'alert alert-error'
+            =flash_tag :warning, :class=>'alert alert-warning'
             =yield
       -else
         .row-fluid
