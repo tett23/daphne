@@ -36,6 +36,11 @@ Daphne.controllers :issues do
   get :edit, :with => :id do
     @issue = Issue.get(params[:id])
     @select_list = Project.select_list(current_account.id)
+
+    add_breadcrumbs(@issue.project.title, url(:projects, :show, :id=>@issue.project.id)) unless @issue.project.blank?
+    add_breadcrumbs(@issue.title, url(:issues, :show, :id=>@issue.id))
+    add_breadcrumbs('編集', url(:issues, :edit, :id=>@issue.id))
+
     render 'issues/edit'
   end
 
