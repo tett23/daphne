@@ -25,7 +25,7 @@ Daphne.controllers :issues do
     @issue.account_id = current_account.id
 
     if @issue.save
-      flash[:success] = 'Issue was successfully created.'
+      flash[:success] = "タスク「#{@issue.title}」を作成しました"
       redirect url(:issues, :edit, :id => @issue.id)
     else
       @select_list = Project.select_list(current_account.id)
@@ -45,8 +45,8 @@ Daphne.controllers :issues do
     params[:issue][:project_id] = nil if params[:issue][:project_id].blank?
 
     if @issue.update(params[:issue])
-      flash[:success] = 'Issue was successfully updated.'
-      redirect url(:issues, :edit, :id => @issue.id)
+      flash[:success] = "タスク「#{@issue.title}」を編集しました"
+      redirect url(:issues, :show, :id => @issue.id)
     else
       @select_list = Project.select_list(current_account.id)
       render 'issues/edit'

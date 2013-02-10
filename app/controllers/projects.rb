@@ -24,8 +24,8 @@ Daphne.controllers :projects do
     @project.account_id = current_account.id
 
     if @project.save
-      flash[:success] = 'Project was successfully created.'
-      redirect url(:projects, :edit, :id => @project.id)
+      flash[:success] = "プロジェクト「#{@project.title}」を作成しました"
+      redirect url(:projects, :show, :id => @project.id)
     else
       @color_list = Color.select_list
       render 'projects/new'
@@ -45,8 +45,8 @@ Daphne.controllers :projects do
     params[:project][:color_id] = nil if params[:project][:color_id].blank?
 
     if @project.update(params[:project])
-      flash[:success] = 'Project was successfully updated.'
-      redirect url(:projects, :edit, :id => @project.id)
+      flash[:success] = "プロジェクト「#{@project.title}」を編集しました"
+      redirect url(:projects, :show, :id => @project.id)
     else
       @color_list = Color.select_list
       render 'projects/edit'
