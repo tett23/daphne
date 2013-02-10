@@ -2,6 +2,9 @@
 
 :coffeescript
   $ ->
+    project_title = $('#issue-form').data('project-title')
+    $('#issue_new_header').val(project_title+'#') if project_title?
+
     $('#issue-form').on 'shown', ->
       $('#issue_new_header').focus()
 
@@ -10,8 +13,9 @@
         console.log e.ctrlKey, e.keyCode
         $('#issue-form form').submit()
 
-
-#issue-form.modal.hide.fade{:role=>'dialog', :tabindex=>'-1', :'aria-labelledby'=>'issue-form', :'aria-hidden'=>true}
+-project = get_project()
+-project_title = project.title unless project.nil?
+#issue-form.modal.hide.fade{:role=>'dialog', :tabindex=>'-1', :'aria-labelledby'=>'issue-form', :'aria-hidden'=>true, :'data-project-title'=>project_title}
   =form_for :issue, url(:issues, :create) do |f|
     .modal-header
       %button.close{:type=>'button', :'data-dismiss'=>'modal', :'aria-hidden'=>true}×
