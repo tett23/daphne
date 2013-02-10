@@ -33,9 +33,16 @@ EOS
   def breadcrumbs
     return '' if @breadcrumbs.nil?
 
-    @breadcrumbs.map do |item|
-      link_to(item[:title], item[:url])
-    end.join('&nbsp;/&nbsp;')
+    haml = <<EOS
+%ul.breadcrumb
+  -breadcrumbs.each_with_index do |item, i|
+    %li
+      =link_to item[:title], item[:url]
+      -if breadcrumbs.size-1 != i
+        %span.divider /
+EOS
+
+    Haml::Engine.new(haml).render(self, :breadcrumbs=>@breadcrumbs)
   end
 
   def add_breadcrumbs(title, url)
