@@ -10,6 +10,17 @@ Daphne.controllers :wiki, :parent=>:projects do
     render 'wiki/show'
   end
 
+  get :list do
+    @project = Project.detail(params[:project_id])
+    @wikis = Wiki.list(current_account.id, params[:project_id])
+
+    add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))
+    add_breadcrumbs('wiki', url(:wiki, :index, :project_id=>@project.id))
+    add_breadcrumbs('list', url(:wiki, :list, :project_id=>@project.id))
+
+    render 'wiki/list'
+  end
+
   get :show, :map=>'/projects/:project_id/wiki/:title' do
     @wiki = Wiki.detail(current_account.id, params[:project_id], params[:title])
 
