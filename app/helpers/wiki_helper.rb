@@ -6,15 +6,23 @@ Daphne.helpers do
 
     text = RedCloth.new(text).to_html
 
+    pre_mode = false
     project_id = params[:project_id]
-    text.gsub!(/\[\[(.+?)\]\]/) do |title|
-      title.gsub!(/[\[\]]/, '')
+    text.lines.to_a.map do |line|
+      pre_mode = true if line =~ /<\s*pre\s*>/
+      pre_mode = false if line =~ /<\s*\/\s*pre\s*>/
 
-      is_wiki_exist = Wiki.exist?(current_account.id, project_id, title)
+      unless pre_mode
+        line = line.gsub(/\[\[(.+?)\]\]/) do |title|
+          title.gsub!(/[\[\]]/, '')
 
-      "<a href='/projects/#{project_id}/wiki/#{title}' class='#{'new' unless is_wiki_exist}'>#{title}</a>"
-    end
+          is_wiki_exist = Wiki.exist?(current_account.id, project_id, title)
 
-    text
+          "<a href='/projects/#{project_id}/wiki/#{title}' class='#{'new' unless is_wiki_exist}'>#{title}</a>"
+        end
+      end
+
+      line
+    end.join()
   end
 end
