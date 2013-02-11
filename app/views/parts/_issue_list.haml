@@ -15,4 +15,4 @@
           -project_title = link_to(issue.project.title, url(:projects, :show, :id=>issue.project.id)) unless issue.project.nil?
           -issue_title = link_to(issue.title, url(:issues, :show, :id=>issue.id))
           =[project_title, issue_title].compact.join('#')
-        %td=truncate issue.description, :length=>40
+        %td=truncate issue.wiki.outline, :length=>40

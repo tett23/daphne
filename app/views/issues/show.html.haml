@@ -12,9 +12,7 @@
   %h2=@issue.title
 
 %h3 説明
-=wiki_format @issue.description
-
--unless @issue.wiki.blank?
-  %h3 wiki
-  %section.wiki.well
-    =wiki_format @issue.wiki
+-if @issue.wiki.nil?
+  =wiki_format @issue.description
+-else
+  =wiki_format @issue.wiki.body

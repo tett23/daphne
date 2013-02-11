@@ -2,7 +2,7 @@
 
 Daphne.helpers do
   def wiki_format(text)
-    return '' if text.nil?
+    return '' if text.blank?
 
     text = RedCloth.new(text).to_html
 

@@ -4,14 +4,15 @@ class Issue
   # property <name>, <type>
   property :id, Serial
   property :title, String
-  property :description, Text
-  property :wiki, Text
   property :closed_at, DateTime
   property :issue_status_id, Integer, :default=>1
 
   belongs_to :account, :required=>false
   belongs_to :project, :required=>false
   belongs_to :issue_status
+  belongs_to :wiki
+
+  attr_accessor :description
 
   # テキストからの入力をcreate用のHashに変換
   def self.parse_text(account_id, text)
@@ -36,6 +37,7 @@ class Issue
     {
       account_id: account_id,
       project_id: project_id,
+      issue_status_id: IssueStatus.get_status_id(:new),
       title: issue_title,
       description: text
     }
@@ -53,6 +55,12 @@ class Issue
 
   def self.detail(id)
     get(id)
+  end
+
+  def text
+    wiki_body = self.wiki.body.strip.gsub(/h1\..+$/, '').strip
+
+    "#{self.project.title}##{self.wiki.title}\n\n#{wiki_body}"
   end
 
   def status_close

@@ -21,19 +21,21 @@ Daphne.controllers :issues do
   post :create do
     issue = Issue.parse_text(current_account.id, params[:issue][:body])
     @issue = Issue.new(issue)
+    wiki = Wiki.create_by_issue(@issue)
+    @issue[:wiki_id] = wiki.id
 
     if @issue.save
       flash[:success] = "タスク「#{@issue.title}」を作成しました"
       redirect url(:issues, :show, :id => @issue.id)
     else
-      @select_list = Project.select_list(current_account.id)
+      flash[:error] = "タスク「#{@issue.title}」の作成に失敗しました"
       render 'issues/new'
     end
   end
 
   get :edit, :with => :id do
     @issue = Issue.get(params[:id])
-    @select_list = Project.select_list(current_account.id)
+    return error 404 if @issue.nil?
 
     add_breadcrumbs(@issue.project.title, url(:projects, :show, :id=>@issue.project.id)) unless @issue.project.blank?
     add_breadcrumbs(@issue.title, url(:issues, :show, :id=>@issue.id))
@@ -45,9 +47,11 @@ Daphne.controllers :issues do
   put :update, :with => :id do
     @issue = Issue.get(params[:id])
 
-    params[:issue][:project_id] = nil if params[:issue][:project_id].blank?
+    issue = Issue.parse_text(current_account.id, params[:issue][:body])
+    @issue.update(issue)
+    @issue.wiki.update_by_issue(@issue)
 
-    if @issue.update(params[:issue])
+    if @issue.update(issue)
       flash[:success] = "タスク「#{@issue.title}」を編集しました"
       redirect url(:issues, :show, :id => @issue.id)
     else
