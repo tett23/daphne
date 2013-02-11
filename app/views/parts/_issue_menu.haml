@@ -1,0 +1,10 @@
+-# coding: utf-8
+
+.pull-right
+  .btn-toolbar
+    .btn-group
+      =button_link('編集', url(:issues, :edit, :id=>issue.id), :icon=>'icon-edit')
+      -if issue.issue_status.title == 'new'
+        =button_link('完了', url(:issues, :status_close, :id=>issue.id), :method=>:put, :icon=>'icon-ok')
+      -else
+        =button_link('未完了', url(:issues, :status_new, :id=>issue.id), :method=>:put, :icon=>'icon-remove')

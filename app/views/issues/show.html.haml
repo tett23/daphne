@@ -1,15 +1,11 @@
 -# coding: utf-8
 
-%div
-  .pull-right
-    .btn-toolbar
-      .btn-group
-        =button_link('編集', url(:issues, :edit, :id=>@issue.id), :icon=>'icon-edit')
-        -if @issue.issue_status.title == 'new'
-          =button_link('完了', url(:issues, :status_close, :id=>@issue.id), :method=>:put, :icon=>'icon-ok')
-        -else
-          =button_link('未完了', url(:issues, :status_new, :id=>@issue.id), :method=>:put, :icon=>'icon-remove')
-
-
-%article.wiki
-  =wiki_format @issue.wiki.body
+%article.wiki.issue.clearfix
+  -wiki_title = @issue.wiki.title
+  -wiki_body = @issue.wiki.outline
+  %h1
+    =wiki_title
+  .clearfix{:style=>'margin-top: -20px'}
+    =partial 'parts/issue_menu', :locals=>{:issue=>@issue}
+  %section.issue_body{:style=>'margin-top: -20px'}
+    =wiki_format wiki_body
