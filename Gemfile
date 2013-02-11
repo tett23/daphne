@@ -28,6 +28,8 @@ gem 'guard-coffeescript'
 gem 'rb-inotify'
 gem 'coffee-filter'
 gem 'RedCloth'
+gem 'padrino-helpers'
+gem 'kaminari', :require => 'kaminari/sinatra'
 
 # Test requirements
 gem 'rspec', :group => "test"

@@ -12,7 +12,7 @@ Daphne.controllers :projects do
     @project = Project.get(params[:id])
     error 404 if @project.nil?
 
-    @issues = Issue.list(current_account.id, :project_id=>params[:id])
+    @issues = Issue.list(current_account.id, :project_id=>params[:id]).page(params[:page] || 1).per(ISSUE_PER_PAGE)
 
     add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))
 

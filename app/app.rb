@@ -1,6 +1,9 @@
 # coding: utf-8
 
 require './lib/twitter_keys'
+require 'kaminari/sinatra'
+
+ISSUE_PER_PAGE = 50
 
 class Daphne < Padrino::Application
   register SassInitializer
@@ -9,6 +12,8 @@ class Daphne < Padrino::Application
   register Padrino::Helpers
   register Padrino::Admin::AccessControl
   register OmniauthInitializer
+  register Kaminari::Helpers::SinatraHelpers
+
 
   enable :authentication
   enable :store_location
