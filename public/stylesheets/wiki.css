@@ -1,7 +1,22 @@
 section.wiki, article.wiki {
-  color: #a5a5a5; }
+  color: #a5a5a5;
+  letter-spacing: 0.1em;
+  line-height: 1.2em; }
   section.wiki h1, section.wiki h2, section.wiki h3, section.wiki h4, section.wiki h5, section.wiki h6, article.wiki h1, article.wiki h2, article.wiki h3, article.wiki h4, article.wiki h5, article.wiki h6 {
     font-weight: normal;
-    color: #858585; }
+    color: #858585;
+    line-height: 1.2em; }
+  section.wiki h1, article.wiki h1 {
+    font-weight: bold;
+    font-size: 24px; }
+  section.wiki h2, article.wiki h2 {
+    font-weight: bold;
+    font-size: 20px; }
+  section.wiki h3, article.wiki h3 {
+    font-weight: bold;
+    font-size: 18px; }
   section.wiki .new, article.wiki .new {
     color: #fe4a4a; }
+  section.wiki blockquote p, article.wiki blockquote p {
+    font-size: 14px;
+    line-height: 1.2em; }

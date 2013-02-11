@@ -9,10 +9,7 @@
           =button_link('完了', url(:issues, :status_close, :id=>@issue.id), :method=>:put, :icon=>'icon-ok')
         -else
           =button_link('未完了', url(:issues, :status_new, :id=>@issue.id), :method=>:put, :icon=>'icon-remove')
-  %h2=@issue.title
 
-%h3 説明
--if @issue.wiki.nil?
-  =wiki_format @issue.description
--else
+
+%article.wiki
   =wiki_format @issue.wiki.body
