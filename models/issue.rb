@@ -59,8 +59,9 @@ class Issue
 
   def text
     wiki_body = self.wiki.body.strip.gsub(/h1\..+$/, '').strip
+    project_title = self.project.title unless self.project.nil?
 
-    "#{self.project.title}##{self.wiki.title}\n\n#{wiki_body}"
+    "#{project_title}##{self.wiki.title}\n\n#{wiki_body}"
   end
 
   def status_close
