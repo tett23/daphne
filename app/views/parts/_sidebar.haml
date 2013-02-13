@@ -7,4 +7,5 @@
         %li.nav-header プロジェクト
         -@projects.each do |project|
           %li=link_to project.title, url(:projects, :show, :id=>project.id)
-        =link_to 'プロジェクトを追加する', url(:projects, :new)
+        %li=link_to 'プロジェクト未所属', url(:projects, :not_belong)
+        %li=link_to 'プロジェクトを追加する', url(:projects, :new)

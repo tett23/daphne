@@ -67,4 +67,12 @@ Daphne.controllers :projects do
     end
     redirect url(:projects, :index)
   end
+
+  get :not_belong do
+    @issues = Issue.list(current_account.id, :project_id=>nil).page(params[:page] || 1).per(ISSUE_PER_PAGE)
+
+    add_breadcrumbs('プロジェクト未所属', url(:projects, :not_belong))
+
+    render 'projects/not_belong'
+  end
 end

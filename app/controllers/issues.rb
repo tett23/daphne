@@ -12,7 +12,11 @@ Daphne.controllers :issues do
     @issue = Issue.detail(id)
     return error 404 if @issue.nil?
 
-    add_breadcrumbs(@issue.project.title, url(:projects, :show, :id=>@issue.project.id)) unless @issue.project.blank?
+    unless @issue.project.blank?
+      add_breadcrumbs(@issue.project.title, url(:projects, :show, :id=>@issue.project.id))
+    else
+      add_breadcrumbs('プロジェクト未所属', url(:projects, :not_belong))
+    end
     add_breadcrumbs(@issue.title, url(:issues, :show, :id=>@issue.id))
 
     render 'issues/show'
