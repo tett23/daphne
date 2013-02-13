@@ -8,3 +8,21 @@
         =button_link('完了', url(:issues, :status_close, :id=>issue.id), :method=>:put, :icon=>'icon-ok')
       -else
         =button_link('未完了', url(:issues, :status_new, :id=>issue.id), :method=>:put, :icon=>'icon-remove')
+      =button_link('タグ', '#issue-tags', :icon=>'icon-tags', :method=>nil, :role=>'button', :'data-toggle'=>:modal)
+
+
+#issue-tags.modal.hide.fade{:role => :dialog,
+  :tabindex => '-1',
+  :'aria-labelledby' => 'issue-tags',
+  :'area-hidden' => 'true'}
+  =form_for :issue, url(:issues, :tags, :id=>@issue.id), :method=>:put do |f|
+    .modal-header
+      %button.close{:type=>'button', :'data-dismiss'=>'modal', :'aria-hidden'=>true}×
+      %h3 Tags
+    .modal-body
+      %div
+        =f.error_message_on :tags
+        =f.text_field :tags, :value=>"#{@issue.tags.nil? ? '' : @issue.tags_text}"
+    .modal-footer
+      =f.submit pat(:save), :class => 'btn btn-primary'
+      %a.btn{:href=>'#', :'data-dismiss'=>'modal', :'aria-hidden'=>'true'} cancel

@@ -21,8 +21,16 @@ Daphne.helpers do
   end
 
   def button_link(str, url, option={})
+    anchor_options = {
+      :href          => url,
+      :class         => "btn #{option[:button_class]}",
+      :'data-method' => option[:method].nil? ? nil : option[:method],
+      :role          => option[:role].nil? ? nil : option[:role],
+      :'data-toggle' => option[:'data-toggle'].nil? ? nil : option[:'data-toggle']
+    }
+
     haml = <<EOS
-%a{:href=>'#{url}', :class=>'btn #{option[:button_class]}', :'data-method'=>'#{option[:method].nil? ? :get : option[:method]}'}
+%a{#{anchor_options}}
   %i{:class=>'#{option[:icon]}'}
   #{str}
 EOS

@@ -97,4 +97,21 @@ Daphne.controllers :issues do
     end
     redirect url(:issues, :show, :id => @issue.id)
   end
+
+  put :tags, :with=>:id do
+    @issue = Issue.detail(params[:id])
+    return error 404 if @issue.nil?
+
+    IssueTag.all(issue_id: params[:id]).destroy
+    Tag.create_by_text(params[:issue][:tags], current_account.id).each do |tag|
+      @issue.tags << tag
+    end
+
+    if @issue.save
+      flash[:success] = "タスク「#{@issue.title}」のタグを「#{@issue.tags_text}」に設定しました"
+    else
+      flash[:success] = "タスク「#{@issue.title}」のタグを「#{@issue.tags_text}」に設定できませんでした"
+    end
+    redirect url(:issues, :show, :id => @issue.id)
+  end
 end

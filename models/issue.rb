@@ -11,6 +11,7 @@ class Issue
   belongs_to :project, :required=>false
   belongs_to :issue_status
   belongs_to :wiki
+  has n, :tags, :through=>Resource
 
   attr_accessor :description
 
@@ -77,5 +78,9 @@ class Issue
       issue_status_id: 1, # new
       closed_at: nil
     )
+  end
+
+  def tags_text
+    self.tags.map{|tag| tag.title}.join(',')
   end
 end
