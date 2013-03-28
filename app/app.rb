@@ -40,6 +40,10 @@ class Daphne < Padrino::Application
     add_breadcrumbs('daphne', '/')
   end
 
+  error 403 do
+    render 'errors/403'
+  end
+
   error 404 do
     render 'errors/404'
   end
