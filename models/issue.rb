@@ -8,6 +8,8 @@ class Issue
   property :title, String
   property :closed_at, DateTime
   property :issue_status_id, Integer, :default=>1
+  property :created_at, DateTime
+  property :updated_at, DateTime
 
   belongs_to :account, :required=>false
   belongs_to :project, :required=>false
