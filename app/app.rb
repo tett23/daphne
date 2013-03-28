@@ -37,7 +37,7 @@ class Daphne < Padrino::Application
       @select_list = Project.select_list(current_account.id)
     end
 
-    add_breadcrumbs('daphnis', '/')
+    add_breadcrumbs('daphne', '/')
   end
 
   error 404 do
