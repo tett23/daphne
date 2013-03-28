@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class Issue
   include DataMapper::Resource
 
@@ -82,5 +84,23 @@ class Issue
 
   def tags_text
     self.tags.map{|tag| tag.title}.join(',')
+  end
+
+  def self.aggrigate(account_id, status_name, project_id=nil)
+    options = {
+      account_id: account_id
+    }
+    options[:project_id] = project_id unless project_id.nil?
+
+    case status_name.to_sym
+    when :all
+      self.all(options).count
+    else
+      status_id = IssueStatus.get_status_id(status_name)
+      raise '不正なIssueStatusId' if status_id.nil?
+      options[:issue_status_id] = status_id
+
+      self.all(options).count
+    end
   end
 end

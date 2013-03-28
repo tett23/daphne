@@ -1,5 +1,16 @@
 -# coding: utf-8
 
+-if locals.key?(:new_count) && locals.key?(:close_count)
+  #issue-aggrigate
+    %span.new-count-label
+      未処理:
+    %span.new-count
+      =new_count
+    %span.close-count-label
+      処理済:
+    %span.close-count
+      =close_count
+
 %table.table.table.striped.table-condensed.table-bordered
   %thead
     %tr
