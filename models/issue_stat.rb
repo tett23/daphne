@@ -15,10 +15,10 @@ class IssueStat
 
   def self.stat(range, account_id, project_id=nil, options={})
     default = {
-      account_id: account_id
+      account_id: account_id,
     }
     options = default.merge(options)
-    options[:project_id] = project_id unless project_id.nil?
+    options[:project_id] = project_id if project_id != 'all'
     stats = []
 
     self.update_today(range, account_id, project_id)
@@ -36,7 +36,7 @@ class IssueStat
 
         stats << self.create(
           account_id: account_id,
-          project_id: project_id,
+          project_id: (project_id == 'all' ? nil : project_id),
           create_count: create_count,
           close_count: close_count,
           aggrigate_on: aggrigate_date
@@ -56,6 +56,7 @@ class IssueStat
       created_at: date
     }
     options = default.merge(options)
+    options[:project_id] = project_id if project_id != 'all'
 
     Issue.all(options).count
   end
@@ -66,6 +67,7 @@ class IssueStat
       closed_at: date
     }
     options = default.merge(options)
+    options[:project_id] = project_id if project_id != 'all'
 
     Issue.all(options).count
   end
@@ -81,12 +83,13 @@ class IssueStat
       account_id: account_id,
       aggrigate_on: today
     }
+    options[:project_id] = project_id if project_id != 'all'
 
     today_stat = self.first(options)
     if today_stat.nil?
       self.create(
         account_id: account_id,
-        project_id: project_id,
+        project_id: (project_id == 'all' ? nil : project_id),
         create_count: create_count,
         close_count: close_count,
         aggrigate_on: Date.today
