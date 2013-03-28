@@ -1,0 +1,57 @@
+-# coding: utf-8
+
+:coffeescript
+  $ ->
+    waitingAnimation = new Spinner({
+      width: 2,
+      color: '#ccc'
+    }).spin($('#stat').get(0))
+    projectId = $('#stat').data('project-id')
+
+    $.getJSON '/api/stat.json', {project_id: projectId}, (result) ->
+      create = []
+      close = []
+      for item in result
+        create.push [item.aggrigate_on, item.create_count]
+        close.push [item.aggrigate_on, item.close_count]
+
+      waitingAnimation.spin()
+
+      $.jqplot('stat', [create, close], {
+        title: 'タスク処理統計',
+        grid: {
+        shadow: false,
+        background: '#fff'
+
+        }
+        axes: {
+          xaxis: {
+            renderer: $.jqplot.DateAxisRenderer
+            tickOptions: {
+              formatString: '%y/%m/%d'
+            }
+          }
+          yaxis: {
+            min: 0
+            tickOptions: {
+              formatString: '%d'
+            }
+          }
+        },
+        series: [
+          {
+            lineWidth: 2,
+            label: '作成'
+          },
+          {
+            lineWidth: 2,
+            label: '終了'
+          }
+        ]
+        legend: {
+          show: true
+
+        }
+      })
+
+#stat{:'data-project-id'=>project_id, :style=>'height: 225px'}

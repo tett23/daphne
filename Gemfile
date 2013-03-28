@@ -17,6 +17,7 @@ gem 'dm-timestamps'
 gem 'dm-migrations'
 gem 'dm-constraints'
 gem 'dm-aggregates'
+gem 'dm-serializer'
 gem 'dm-core'
 
 gem 'omniauth'
