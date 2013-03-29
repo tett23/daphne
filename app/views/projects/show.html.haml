@@ -14,4 +14,4 @@
 =partial 'parts/issue_stat', locals: {project_id: @project.id}
 
 %h3 タスク一覧
-=partial 'parts/issue_list', :locals=>{:issues=>@issues}
+=partial 'parts/issue_list', :locals=>{:issues=>@issues, new_count: @issue_new_count, close_count: @issue_close_count}
