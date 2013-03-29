@@ -30,7 +30,7 @@ gem 'rb-inotify'
 gem 'coffee-filter'
 gem 'RedCloth'
 gem 'padrino-helpers'
-gem 'kaminari', :require => 'kaminari/sinatra'
+gem 'kaminari', '0.14.1', :require => 'kaminari/sinatra'
 
 # Test requirements
 gem 'rspec', :group => "test"
