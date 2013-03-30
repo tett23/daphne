@@ -1,9 +1,22 @@
 -# coding: utf-8
 
 %ul.nav
-  %li
+  %li.hidden-phone
     %a{href: '/'}Home
-%ul.nav.pull-right
+  -if logged_in?
+    %li.dropdown.visible-phone
+      %a.dropdown-toggle{:href=>'#', :'data-toggle'=>'dropdown'}
+        projects
+        %ul.dropdown-menu.no-collapse
+          -@projects.each do |project|
+            %li=link_to project.title, url(:projects, :show, :id=>project.id)
+          %li=link_to 'プロジェクト未所属', url(:projects, :not_belong)
+          %li=link_to 'プロジェクトを追加する', url(:projects, :new)
+
+    %li.visible-phone
+      %a{:href=>'#issue-form', :'data-toggle'=>'modal'}
+        new
+%ul.nav.pull-right.hidden-phone
   -if logged_in?
     %li
       %a#new-issue.btn.btn-small{:href=>'#issue-form', :role=>'button', :'data-toggle'=>'modal', :style=>'padding: 2px 10px;'}
