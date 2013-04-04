@@ -7,5 +7,7 @@
     =wiki_title
   .clearfix{:style=>'margin-top: -20px'}
     =partial 'parts/issue_menu', :locals=>{:issue=>@issue}
-  %section.issue_body{:style=>'margin-top: -20px'}
+  %section.issue_body
     =wiki_format wiki_body
+    .pull-right.issue-infomation
+      =@issue.scheduled_on
