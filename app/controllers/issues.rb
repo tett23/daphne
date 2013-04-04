@@ -52,11 +52,18 @@ Daphne.controllers :issues do
   put :update, :with => :id do
     @issue = Issue.get(params[:id])
 
-    issue = Issue.parse_text(current_account.id, params[:issue][:body])
-    @issue.update(issue)
-    @issue.wiki.update_by_issue(@issue)
+    issue = params[:issue]
+    is_update_wiki = params[:issue].key?('body')
+    if is_update_wiki
+      parsed = Issue.parse_text(current_account.id, params[:issue][:body])
+      params[:issue].delete('body')
+      issue = parsed.merge(issue)
+    end
+
 
     if @issue.update(issue)
+      @issue.wiki.update_by_issue(@issue) if is_update_wiki
+
       flash[:success] = "タスク「#{@issue.title}」を編集しました"
       redirect url(:issues, :show, :id => @issue.id)
     else
