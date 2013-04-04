@@ -5,4 +5,5 @@
     =link_to project.title, url(:projects, :show, :id=>project.id), :class=>:brand
     %ul.nav
       %li=link_to :issue, url(:issues, :index, :project_id=>project.id)
+      %li=link_to :gantt, url(:gantt, :index, :project_id=>project.id)
       %li=link_to :wiki, url(:wiki, :index, :project_id=>project.id)

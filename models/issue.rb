@@ -8,6 +8,7 @@ class Issue
   property :title, String
   property :closed_at, DateTime
   property :issue_status_id, Integer, :default=>1
+  property :scheduled_on, Date
   property :created_at, DateTime
   property :updated_at, DateTime
 
