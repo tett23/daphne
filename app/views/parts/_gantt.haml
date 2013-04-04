@@ -1,0 +1,46 @@
+-# coding: utf-8
+
+:coffeescript
+  $ ->
+    waitingAnimation = new Spinner({
+      width: 2,
+      color: '#ccc'
+    }).spin($('#gantt').get(0))
+
+    $gantt = $('#gantt')
+    projectId = $gantt.data('project-id')
+
+    $.getJSON '/api/gantt.json', {project_id: projectId}, (result) ->
+      values = []
+      for item in result
+        if item.created_at?
+          created_at = new Date(item.created_at)
+        else
+          created_at = new Date()
+        scheduled_on = new Date(item.scheduled_on)
+        created_at.setDate(created_at.getDate()-1)
+        scheduled_on.setDate(scheduled_on.getDate()-1)
+        from = "/Date("+created_at.getTime()+")/"
+        to = "/Date("+scheduled_on.getTime()+")/"
+        label = $('<div />').append($('<a />').prop('href', '/issues/show/'+item.id).text(item.title)).html()
+
+        values.push {
+          name: label,
+          values: [{
+            to: to,
+            from: from,
+            label: item.title
+          }]
+        }
+
+      waitingAnimation.spin()
+      $gantt.gantt({
+        source: values
+        scale: 'date',
+        minScale: 'date',
+        maxScale: 'months'
+      })
+
+-gantt_options = {style: 'height: 300px'}
+-gantt_options[:'data-project-id'] = project.id if locals.key?(:project)
+#gantt{gantt_options}
