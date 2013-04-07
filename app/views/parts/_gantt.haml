@@ -11,6 +11,11 @@
     projectId = $gantt.data('project-id')
 
     $.getJSON '/api/gantt.json', {project_id: projectId}, (result) ->
+      if result.length == 0
+        waitingAnimation.spin()
+        $gantt.append('期限付きのissueは存在しません')
+        return
+
       values = []
       for item in result
         if item.created_at?
