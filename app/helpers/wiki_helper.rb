@@ -9,6 +9,8 @@ Daphne.helpers do
     pre_mode = false
     project_id = params[:project_id]
     text.lines.to_a.map do |line|
+      line.gsub!(/([^><"]?)(https?:\/\/.+?)([<\s$])/, '\1<a href="\2">\2</a>\3') unless line.match(/<a\s.+/)
+
       pre_mode = true if line =~ /<\s*pre\s*>/
       pre_mode = false if line =~ /<\s*\/\s*pre\s*>/
 
