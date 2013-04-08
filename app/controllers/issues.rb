@@ -25,6 +25,7 @@ Daphne.controllers :issues do
 
   post :create do
     issue = Issue.parse_text(current_account.id, params[:issue][:body])
+    issue[:scheduled_on] = params[:issue][:scheduled_on]
     @issue = Issue.new(issue)
     wiki = Wiki.create_by_issue(@issue)
     @issue[:wiki_id] = wiki.id
