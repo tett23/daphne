@@ -37,7 +37,7 @@ class Issue
       project_id = nil
 
       projects = Project.search(account_id, head.first)
-      project_id = projects.first.id unless projects.nil?
+      project_id = projects.first.id unless projects.blank?
     end
 
     {
