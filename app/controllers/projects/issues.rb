@@ -4,7 +4,7 @@ Daphne.controllers :issues, :parent=>:projects do
   get :index do
     @project = Project.get(params[:project_id])
     return error 404 if @project.nil?
-    return error 403 unless @project.account_id == current_account.id
+    has_authority_or_403(@project)
 
     @issues = Issue.list(current_account.id, :project_id=>params[:project_id]).page(params[:page] || 1).per(ISSUE_PER_PAGE)
     @issue_close_count = Issue.aggrigate(current_account.id, :close, params[:project_id])

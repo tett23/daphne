@@ -11,7 +11,7 @@ Daphne.controllers :projects do
   get :show, :with => :id do
     @project = Project.get(params[:id])
     return error 404 if @project.nil?
-    return error 403 unless @project.account_id == current_account.id
+    has_authority_or_403(@project)
 
     issue_list = Issue.list(current_account.id, :project_id=>params[:id])
     @issues = issue_list.page(params[:page] || 1).per(ISSUE_PER_PAGE)
