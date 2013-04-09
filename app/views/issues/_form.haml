@@ -1,5 +1,12 @@
 -# coding: utf-8
 
+:coffeescript
+  $ ->
+    $('#issue_body_full').keydown (e) ->
+      if e.ctrlKey && e.keyCode == 13 # ctrl+enter
+        console.log e.ctrlKey, e.keyCode
+        $('#issue-edit-form').submit()
+
 %fieldset
   %legend Issue
   %div

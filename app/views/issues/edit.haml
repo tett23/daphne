@@ -4,5 +4,5 @@
   issue編集:
   =@issue.title
 
--form_for :issue, url(:issues, :update, :id=>@issue.id), :method=>:put do |f|
+-form_for :issue, url(:issues, :update, :id=>@issue.id), :method=>:put, :id=>:'issue-edit-form' do |f|
   =partial "issues/form", :locals => { :f => f }
