@@ -15,7 +15,7 @@
   %thead
     %tr
       %th id
-      %th プロジェクト#タイトル
+      %th プロジェクト#タイトル(期限, 経過日数)
       %th 概要
   %tbody
     -issues.each do |issue|
@@ -26,6 +26,7 @@
           -project_title = link_to(issue.project.title, url(:projects, :show, :id=>issue.project.id)) unless issue.project.nil?
           -issue_title = link_to(issue.title, url(:issues, :show, :id=>issue.id))
           =[project_title, issue_title].compact.join('#')
+          ="(#{[show_issue_schedule(issue), date_diff(Date.today, issue.created_at)].compact.join(', ')})"
         %td=truncate issue.wiki.outline, :length=>40
 
 =paginate issues

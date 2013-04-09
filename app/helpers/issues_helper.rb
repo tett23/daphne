@@ -1,7 +1,9 @@
-# Helper methods defined here can be accessed in any controller or view in the application
+#coding: utf-8
 
 Daphne.helpers do
-  # def simple_helper_method
-  #  ...
-  # end
+  def show_issue_schedule(issue)
+    return '期限なし' if issue.scheduled_on.blank?
+
+    issue.scheduled_on
+  end
 end

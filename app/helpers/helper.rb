@@ -62,4 +62,12 @@ EOS
   def clear_breadcrumbs
     @breadcrumbs = []
   end
+
+  def date_diff(date1, date2)
+    diff = (date1 - date2).to_i rescue nil
+
+    return nil if diff.nil?
+    return '今日' if diff == 0
+    diff.to_s+'日前'
+  end
 end
