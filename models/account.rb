@@ -19,6 +19,7 @@ class Account
         role: :users
       )
     end
+    account.update_name(auth['info']['name']) unless account.name == auth['info']['name']
 
     account
   end
@@ -26,5 +27,9 @@ class Account
   # omniauthが使用するORMの変更がうまくいくなら直すこと
   def self.find_by_id(id)
     get(id)
+  end
+
+  def update_name(name)
+     update(name: name)
   end
 end
