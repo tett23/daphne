@@ -10,12 +10,15 @@ class Account
   property :provider, String
 
   def self.create_with_omniauth(auth)
-    account = first_or_create({
-      :uid => auth['uid'],
-      :provider => auth['provider'],
-      :name => auth['info']['name'],
-      :role => :users
-    })
+    account = first(uid: auth['uid'])
+    if account.nil?
+      account = create(
+        uid: auth['uid'],
+        provider: auth['provider'],
+        name: auth['info']['name'],
+        role: :users
+      )
+    end
 
     account
   end
