@@ -1,11 +1,12 @@
 # coding: utf-8
 
 Daphne.controllers :issues, :parent=>:projects do
-  get :index do
+  before do
     @project = Project.get(params[:project_id])
-    return error 404 if @project.nil?
-    has_authority_or_403(@project)
-
+    error 404 if @project.nil?
+    has_authority_or_403(@project, :view)
+  end
+  get :index do
     @issues = Issue.list(current_account.id, :project_id=>params[:project_id]).page(params[:page] || 1).per(ISSUE_PER_PAGE)
     @issue_close_count = Issue.aggrigate(current_account.id, :close, params[:project_id])
     @issue_new_count = Issue.aggrigate(current_account.id, :new, params[:project_id])

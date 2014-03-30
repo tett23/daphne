@@ -1,8 +1,12 @@
 # coding: utf-8
 
 Daphne.controllers :authority, :parent=>:projects do
-  get :index do
+  before do
     @project = Project.detail(params[:project_id])
+    has_authority_or_403(@project, :all)
+  end
+
+  get :index do
     @authorities = Authority.project_index(params[:project_id])
 
     add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))
@@ -12,12 +16,10 @@ Daphne.controllers :authority, :parent=>:projects do
   end
 
   get :new do
-    @project = Project.detail(params[:project_id])
     render 'projects/config/authority/new'
   end
 
   post :create do
-    @project = Project.detail(params[:project_id])
     @authority = Authority.new(params[:authority])
 
     if @authority.save
@@ -30,7 +32,6 @@ Daphne.controllers :authority, :parent=>:projects do
   end
 
   get :list do
-    @project = Project.detail(params[:project_id])
     @wikis = Wiki.list(current_account.id, params[:project_id])
 
     add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))
@@ -51,14 +52,12 @@ Daphne.controllers :authority, :parent=>:projects do
   end
 
   get :edit, with: [:authority_id] do
-    @project = Project.detail(params[:project_id])
     @authority = Authority.get(params[:authority_id])
 
     render 'projects/config/authority/edit'
   end
 
   put :update, with: [:authority_id] do
-    @project = Project.detail(params[:project_id])
     @authority = Authority.get(params[:authority_id])
 
     if @authority.update(params[:authority])

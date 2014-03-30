@@ -11,7 +11,7 @@ Daphne.controllers :projects do
   get :show, :with => :id do
     @project = Project.get(params[:id])
     return error 404 if @project.nil?
-    has_authority_or_403(@project)
+    has_authority_or_403(@project, :view)
 
     issue_list = Issue.list(current_account.id, :project_id=>params[:id])
     @issues = issue_list.page(params[:page] || 1).per(ISSUE_PER_PAGE)
@@ -40,6 +40,7 @@ Daphne.controllers :projects do
 
   get :edit, :with => :id do
     @project = Project.get(params[:id])
+    has_authority_or_403(@project, :all)
     @color_list = Color.select_list
 
     add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))
@@ -50,6 +51,7 @@ Daphne.controllers :projects do
 
   put :update, :with => :id do
     @project = Project.get(params[:id])
+    has_authority_or_403(@project, :all)
 
     params[:project][:color_id] = nil if params[:project][:color_id].blank?
 
@@ -64,6 +66,8 @@ Daphne.controllers :projects do
 
   delete :destroy, :with => :id do
     static_page = Project.get(params[:id])
+    has_authority_or_403(@project, :all)
+
     if static_page.destroy
       flash[:success] = 'Project was successfully destroyed.'
     else

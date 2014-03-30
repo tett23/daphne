@@ -1,17 +1,19 @@
 # coding: utf-8
 
 Daphne.controllers :issues do
+  before do
+  end
 
   get :new do
     @issue = Issue.new
+
     @select_list = Project.select_list(current_account.id)
     render 'issue/new'
   end
 
   get :show, :with=>:id do |id|
     @issue = Issue.detail(id)
-    return error 404 if @issue.nil?
-    has_authority_or_403(@issue)
+    has_authority_or_403(@issue.project, :issue)
 
     unless @issue.project.blank?
       add_breadcrumbs(@issue.project.title, url(:projects, :show, :id=>@issue.project.id))
@@ -42,6 +44,7 @@ Daphne.controllers :issues do
   get :edit, :with => :id do
     @issue = Issue.get(params[:id])
     return error 404 if @issue.nil?
+    has_authority_or_403(@issue.project, :issue)
 
     add_breadcrumbs(@issue.project.title, url(:projects, :show, :id=>@issue.project.id)) unless @issue.project.blank?
     add_breadcrumbs(@issue.title, url(:issues, :show, :id=>@issue.id))
@@ -52,6 +55,7 @@ Daphne.controllers :issues do
 
   put :update, :with => :id do
     @issue = Issue.get(params[:id])
+    has_authority_or_403(@issue.project, :issue)
 
     issue = params[:issue]
     is_update_wiki = params[:issue].key?('body')
@@ -75,6 +79,9 @@ Daphne.controllers :issues do
 
   delete :destroy, :with => :id do
     static_page = Issue.get(params[:id])
+    has_authority_or_403(static_page.project, :issue)
+
+    static_page = Issue.get(params[:id])
     if static_page.destroy
       flash[:success] = 'Issue was successfully destroyed.'
     else
@@ -86,6 +93,7 @@ Daphne.controllers :issues do
   put :status_close, :with=>:id do
     @issue = Issue.detail(params[:id])
     return error 404 if @issue.nil?
+    has_authority_or_403(@issue.project, :issue)
 
     if @issue.status_close
       flash[:success] = "タスク「#{@issue.title}」を完了しました"
@@ -98,6 +106,7 @@ Daphne.controllers :issues do
   put :status_new, :with=>:id do
     @issue = Issue.detail(params[:id])
     return error 404 if @issue.nil?
+    has_authority_or_403(@issue.project, :issue)
 
     if @issue.status_new
       flash[:success] = "タスク「#{@issue.title}」を未完了にしました"
@@ -110,6 +119,7 @@ Daphne.controllers :issues do
   put :tags, :with=>:id do
     @issue = Issue.detail(params[:id])
     return error 404 if @issue.nil?
+    has_authority_or_403(@issue.project, :issue)
 
     IssueTag.all(issue_id: params[:id]).destroy
     Tag.create_by_text(params[:issue][:tags], current_account.id).each do |tag|

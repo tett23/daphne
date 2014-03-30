@@ -13,6 +13,19 @@ class Authority
   before :save, :link_account
   before :create, :link_account
 
+  def self.allow_everyone_access?(project_id)
+    authority = Authority.first(project_id: project_id, type: :global)
+    return false if authority.nil?
+
+    [:all, :view, :issue].include?(authority.privilege)
+  end
+
+  def self.account_privileges(project_id, account_id)
+    Authority.all(project_id: project_id, account_id: account_id, type: :account).map do |authority|
+      authority.privilege
+    end
+  end
+
   def self.project_index(project_id)
     self.all(project_id: project_id)
   end

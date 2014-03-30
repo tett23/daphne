@@ -1,6 +1,11 @@
 # coding: utf-8
 
 Daphne.controllers :wiki, :parent=>:projects do
+  before do
+    @project = Project.detail(params[:project_id])
+    has_authority_or_403(@project, :view)
+  end
+
   get :index do
     @wiki = Wiki.project_index(current_account.id, params[:project_id])
 
@@ -33,6 +38,7 @@ Daphne.controllers :wiki, :parent=>:projects do
 
   get :edit, :map=>'/projects/:project_id/wiki/:title/edit' do
     @wiki = Wiki.detail(current_account.id, params[:project_id], params[:title])
+    has_authority_or_403(@project, :issue)
 
     add_breadcrumbs(@wiki.project.title, url(:projects, :show, :id=>@wiki.project.id))
     add_breadcrumbs('wiki', url(:wiki, :index, :project_id=>@wiki.project.id))
@@ -43,6 +49,7 @@ Daphne.controllers :wiki, :parent=>:projects do
 
   post :update, :with=>:title do
     @wiki = Wiki.detail(current_account.id, params[:project_id], params[:title])
+    has_authority_or_403(@project, :issue)
 
     if @wiki.update(params[:wiki])
       flash[:success] = @wiki.title+'を編集しました'

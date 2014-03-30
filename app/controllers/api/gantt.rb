@@ -3,7 +3,7 @@
 Daphne.controllers :api_gantt, map: '/api' do
   get :index, provides: [:json], map: '/api/gantt' do
     if params.key?('project_id')
-      has_authority_or_403(Project.detail(params[:project_id]))
+      has_authority_or_403(Project.detail(params[:project_id]), :view)
     end
 
     options = {
