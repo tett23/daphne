@@ -32,8 +32,8 @@
 
 -project = get_project()
 -project_title = project.title unless project.nil?
--is_owner = project.owner?(current_account.id)
--project_owner = project.account.nickname
+-is_owner = project.nil? ? false : project.owner?(current_account.id)
+-project_owner = project.nil? ? '' : project.account.nickname
 -project_data = {:'project-title'=>project_title, :'is-owner'=>is_owner, :'project-owner'=>project_owner}
 #issue-form.modal.hide.fade{:role=>'dialog', :tabindex=>'-1', :'aria-labelledby'=>'issue-form', :'aria-hidden'=>true, :data=>project_data}
   =form_for :issue, url(:issues, :create) do |f|
