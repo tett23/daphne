@@ -9,16 +9,17 @@ Daphne.helpers do
   end
 
   def get_project
-    if !@project.nil? && !@project.id.nil?
-      return @project
-    end
-    if !@issue.nil? && !@issue.project.nil?
-      return @issue.project
-    end
-    if !@wiki.nil? && !@wiki.project.nil?
-      return @wiki.project
-    end
+    project = nil
+    project = @project if !@project.nil? && !@project.id.nil?
+    project = @issue.project if !@issue.nil? && !@issue.project.nil?
+    project = @wiki.project if !@wiki.nil? && !@wiki.project.nil?
 
-    nil
+    project
+  end
+
+  def concern_projects
+    Project.list(current_account.id).to_a + Authority.concerned(current_account.id, [:all, :view]).map do |authority|
+      authority.project
+    end.to_a
   end
 end

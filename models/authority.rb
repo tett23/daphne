@@ -13,11 +13,15 @@ class Authority
   before :save, :link_account
   before :create, :link_account
 
-  def self.allow_everyone_access?(project_id)
-    authority = Authority.first(project_id: project_id, type: :global)
+  def self.allow_everyone_access?(project_id, privilege=:view)
+    authority = Authority.first(project_id: project_id, type: :global, privilege: privilege)
     return false if authority.nil?
+    return false if authority.privilege == :deny
+    return true if authority.privilege == :all
+    return true if authority.privilege == :view && privilege == :view
+    return true if authority.privilege == :issue && (privilege == :issue || privilege == :view)
 
-    [:all, :view, :issue].include?(authority.privilege)
+    false
   end
 
   def self.account_privileges(project_id, account_id)
@@ -53,5 +57,9 @@ class Authority
     return true if account.nil?
 
     self.account_id = account.id
+  end
+
+  def self.concerned(account_id, privileges=[:view])
+    Authority.all(account_id: account_id, type: :account, privilege: [:all, :issue])
   end
 end

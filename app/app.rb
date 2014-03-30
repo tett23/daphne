@@ -33,7 +33,7 @@ class Daphne < Padrino::Application
 
   before do
     if logged_in?
-      @projects = Project.list(current_account.id)
+      @projects = concern_projects
       @select_list = Project.select_list(current_account.id)
     end
 
