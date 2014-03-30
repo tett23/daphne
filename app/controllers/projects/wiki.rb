@@ -7,7 +7,7 @@ Daphne.controllers :wiki, :parent=>:projects do
   end
 
   get :index do
-    @wiki = Wiki.project_index(current_account.id, params[:project_id])
+    @wiki = Wiki.project_index(@project.account_id, params[:project_id])
 
     add_breadcrumbs(@wiki.project.title, url(:projects, :show, :id=>@wiki.project.id))
     add_breadcrumbs('wiki', url(:wiki, :index, :project_id=>@wiki.project.id))
@@ -17,7 +17,7 @@ Daphne.controllers :wiki, :parent=>:projects do
 
   get :list do
     @project = Project.detail(params[:project_id])
-    @wikis = Wiki.list(current_account.id, params[:project_id])
+    @wikis = Wiki.list(@project.account_id, params[:project_id])
 
     add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))
     add_breadcrumbs('wiki', url(:wiki, :index, :project_id=>@project.id))
@@ -27,7 +27,7 @@ Daphne.controllers :wiki, :parent=>:projects do
   end
 
   get :show, :map=>'/projects/:project_id/wiki/:title' do
-    @wiki = Wiki.detail(current_account.id, params[:project_id], params[:title])
+    @wiki = Wiki.detail(@project.account_id, params[:project_id], params[:title])
 
     add_breadcrumbs(@wiki.project.title, url(:projects, :show, :id=>@wiki.project.id))
     add_breadcrumbs('wiki', url(:wiki, :index, :project_id=>@wiki.project.id))
@@ -37,7 +37,7 @@ Daphne.controllers :wiki, :parent=>:projects do
   end
 
   get :edit, :map=>'/projects/:project_id/wiki/:title/edit' do
-    @wiki = Wiki.detail(current_account.id, params[:project_id], params[:title])
+    @wiki = Wiki.detail(@project.account_id, params[:project_id], params[:title])
     has_authority_or_403(@project, :issue)
 
     add_breadcrumbs(@wiki.project.title, url(:projects, :show, :id=>@wiki.project.id))
@@ -48,7 +48,7 @@ Daphne.controllers :wiki, :parent=>:projects do
   end
 
   post :update, :with=>:title do
-    @wiki = Wiki.detail(current_account.id, params[:project_id], params[:title])
+    @wiki = Wiki.detail(@project.account_id, params[:project_id], params[:title])
     has_authority_or_403(@project, :issue)
 
     if @wiki.update(params[:wiki])

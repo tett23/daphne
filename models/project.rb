@@ -30,4 +30,8 @@ class Project
       :title.like => "%#{title}%"
     )
   end
+
+  def owner?(account_id)
+    self.account_id == account_id
+  end
 end

@@ -2,8 +2,18 @@
 
 :coffeescript
   $ ->
-    project_title = $('#issue-form').data('project-title')
-    $('#issue_new_header').val(project_title+'#') if project_title?
+    project_data = $('#issue-form').data()
+    project_title = project_data.projectTitle
+    is_owner = project_data.isOwner?
+    project_owner = project_data.projectOwner
+
+    if project_title?
+      title = ''
+      if is_owner
+        title = project_title
+      else
+        title = project_title+'('+project_owner+')'
+      $('#issue_new_header').val(title+'#')
 
     $('#issue-form').on 'shown', ->
       $('#issue_new_header').focus()
@@ -22,7 +32,10 @@
 
 -project = get_project()
 -project_title = project.title unless project.nil?
-#issue-form.modal.hide.fade{:role=>'dialog', :tabindex=>'-1', :'aria-labelledby'=>'issue-form', :'aria-hidden'=>true, :'data-project-title'=>project_title}
+-is_owner = project.owner?(current_account.id)
+-project_owner = project.account.nickname
+-project_data = {:'project-title'=>project_title, :'is-owner'=>is_owner, :'project-owner'=>project_owner}
+#issue-form.modal.hide.fade{:role=>'dialog', :tabindex=>'-1', :'aria-labelledby'=>'issue-form', :'aria-hidden'=>true, :data=>project_data}
   =form_for :issue, url(:issues, :create) do |f|
     .modal-header
       %button.close{:type=>'button', :'data-dismiss'=>'modal', :'aria-hidden'=>true}×

@@ -13,9 +13,9 @@ Daphne.controllers :projects do
     return error 404 if @project.nil?
     has_authority_or_403(@project, :view)
 
-    issue_list = Issue.list(current_account.id, :project_id=>params[:id])
+    issue_list = Issue.list(@project.account_id, :project_id=>params[:id])
     @issues = issue_list.page(params[:page] || 1).per(ISSUE_PER_PAGE)
-    @issue_close_count = Issue.aggrigate(current_account.id, :close, params[:id])
+    @issue_close_count = Issue.aggrigate(@project.account_id, :close, params[:id])
     @issue_new_count = issue_list.all(:issue_status_id => IssueStatus.get_status_id(:new)).count
 
     add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))

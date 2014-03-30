@@ -1,9 +1,6 @@
 # coding: utf-8
 
 Daphne.controllers :issues do
-  before do
-  end
-
   get :new do
     @issue = Issue.new
 

@@ -29,14 +29,19 @@ class Issue
     text = lines[1..lines.size-1].join('').strip
 
     head = head.split('#')
-    if head.size == 1 # プロジェクトとタスク名の両方がある
+    if head.size == 1 # タスク名のみとして処理する
       project_id = nil
       issue_title = head.last
-    else # タスク名のみとして処理する
+    else # プロジェクトとタスク名の両方がある
       issue_title = head.last
-      project_id = nil
+      project_title = head.first
+      owner_name = project_title.match(/\(.+?\)/).to_a.first.gsub(/\(|\)/, '') # ユーザ名の指定がある場合
+      owner_name = Account.get(account_id).nickname if owner_name.nil? # なければ自分のnicknameを取得
+      project_title = project_title.gsub(/\(.+?\)/, '')
 
-      projects = Project.search(account_id, head.first)
+      owner = Account.first(nickname: owner_name)
+
+      projects = Project.search(owner.id, project_title)
       project_id = projects.first.id unless projects.blank?
     end
 
@@ -54,7 +59,7 @@ class Issue
       issue_status_id: 1 # new
     }
     options = default.merge(options)
-    options[:account_id] = account_id
+    options[:account_id] = account_id unless account_id.nil?
 
     all(options)
   end
