@@ -7,5 +7,5 @@ class Authority
   property :privilege, Enum[:all, :view, :issue, :deny], default: :view
 
   belongs_to :project
-  belongs_to :account, require: false
+  belongs_to :account, required: false
 end
