@@ -7,3 +7,5 @@
       %li=link_to :issue, url(:issues, :index, :project_id=>project.id)
       %li=link_to :gantt, url(:gantt, :index, :project_id=>project.id)
       %li=link_to :wiki, url(:wiki, :index, :project_id=>project.id)
+    %ul.nav.pull-right
+      %li=link_to :config, url(:authority, :index, project_id: project.id)

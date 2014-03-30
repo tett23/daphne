@@ -1,0 +1,20 @@
+-# coding: utf-8
+
+.form-horizontal
+  .control-group
+    %label.control-label 種類
+    .controls
+      =f.select :type, options: Authority.type_select, include_blank: false
+  .control-group
+    %label.control-label 特権
+    .controls
+      =f.select :privilege, options: Authority.privilege_select, include_blank: false
+  .control-group
+    %label.control-label ユーザ名
+    .controls
+      =f.text_field :account_nickname
+  .control-group
+    .controls
+      =f.submit pat(:save), :class => 'btn btn-primary'
+      =f.submit pat(:cancel), :onclick => "window.location='#{url(:authority, :index, project_id: @project.id)}';return false", :class => :btn
+=f.hidden_field :project_id, value: @project.id

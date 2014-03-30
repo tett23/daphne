@@ -1,0 +1,6 @@
+-# coding: utf-8
+
+%h2="権限を編集: #{@authority.id}"
+
+-form_for :authority, url(:authority, :update, project_id: @project.id, authority_id: @authority.id), method: :put do |f|
+  =partial "projects/config/authority/form", :locals => { :f => f }

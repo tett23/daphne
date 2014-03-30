@@ -1,0 +1,6 @@
+-# coding: utf-8
+
+%h2 新規権限
+
+-form_for :authority, url(:authority, :create, project_id: @project.id) do |f|
+  =partial "projects/config/authority/form", :locals => { :f => f }

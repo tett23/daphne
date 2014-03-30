@@ -1,0 +1,20 @@
+-# coding: utf-8
+
+%table.table.tabl-striped.table-condensed.table-bordered
+  %thead
+    %tr
+      %th id
+      %th 対象
+      %th 付加特権
+      %th ユーザ
+      %th 操作
+  %tbody
+    -authorities.each do |authority|
+      %tr
+        %td=authority.id
+        %td=authority.type
+        %td=authority.privilege
+        %td=authority.account_nickname
+        %td
+          =button_link '', url(:authority, :edit, project_id: authority.project_id, authority_id: authority.id), icon: 'icon-edit'
+          =button_link '', url(:authority, :destroy, project_id: authority.project_id, authority_id: authority.id), icon: 'icon-remove', method: :delete
