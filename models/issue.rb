@@ -35,8 +35,9 @@ class Issue
     else # プロジェクトとタスク名の両方がある
       issue_title = head.last
       project_title = head.first
-      owner_name = project_title.match(/\(.+?\)/).to_a.first.gsub(/\(|\)/, '') # ユーザ名の指定がある場合
+      owner_name = project_title.match(/\(.+?\)/).to_a.first # ユーザ名の指定がある場合
       owner_name = Account.get(account_id).nickname if owner_name.nil? # なければ自分のnicknameを取得
+      owner_name = owner_name.gsub(/\(|\)/, '')
       project_title = project_title.gsub(/\(.+?\)/, '')
 
       owner = Account.first(nickname: owner_name)
