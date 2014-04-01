@@ -7,6 +7,7 @@ Daphne.helpers do
     return true if Authority.allow_everyone_access?(project.id, privilege)
 
     privileges = Authority.account_privileges(project.id, account.id)
+    return true if privileges.include?(:all)
     privileges.include?(privilege)
   end
 
