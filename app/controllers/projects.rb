@@ -15,7 +15,7 @@ Daphne.controllers :projects do
 
     issue_list = Issue.list(params[:id])
     @issues = issue_list.page(params[:page] || 1).per(ISSUE_PER_PAGE)
-    @issue_close_count = Issue.aggrigate(@project.account_id, :close, params[:id])
+    @issue_close_count = Issue.aggrigate(@project.id, :close, current_account.id)
     @issue_new_count = issue_list.all(:issue_status_id => IssueStatus.get_status_id(:new)).count
 
     add_breadcrumbs(@project.title, url(:projects, :show, :id=>@project.id))

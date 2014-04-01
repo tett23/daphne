@@ -94,11 +94,10 @@ class Issue
     self.tags.map{|tag| tag.title}.join(',')
   end
 
-  def self.aggrigate(account_id, status_name, project_id=nil)
-    options = {
-      account_id: account_id
-    }
+  def self.aggrigate(project_id, status_name, account_id=nil)
+    options = {}
     options[:project_id] = project_id unless project_id.nil?
+    options[:account_id] = account_id unless account_id.nil?
 
     case status_name.to_sym
     when :all
