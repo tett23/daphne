@@ -8,7 +8,7 @@ Daphne.controllers :issues, :parent=>:projects do
   end
 
   get :index do
-    @issues = Issue.list(@project.account_id, :project_id=>params[:project_id]).page(params[:page] || 1).per(ISSUE_PER_PAGE)
+    @issues = Issue.list(params[:project_id]).page(params[:page] || 1).per(ISSUE_PER_PAGE)
     @issue_close_count = Issue.aggrigate(@project.account_id, :close, params[:project_id])
     @issue_new_count = Issue.aggrigate(@project.account_id, :new, params[:project_id])
 

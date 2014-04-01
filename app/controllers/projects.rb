@@ -13,7 +13,7 @@ Daphne.controllers :projects do
     return error 404 if @project.nil?
     has_authority_or_403(@project, :view)
 
-    issue_list = Issue.list(@project.account_id, :project_id=>params[:id])
+    issue_list = Issue.list(params[:id])
     @issues = issue_list.page(params[:page] || 1).per(ISSUE_PER_PAGE)
     @issue_close_count = Issue.aggrigate(@project.account_id, :close, params[:id])
     @issue_new_count = issue_list.all(:issue_status_id => IssueStatus.get_status_id(:new)).count
@@ -77,7 +77,7 @@ Daphne.controllers :projects do
   end
 
   get :not_belong do
-    @issues = Issue.list(current_account.id, :project_id=>nil).page(params[:page] || 1).per(ISSUE_PER_PAGE)
+    @issues = Issue.list(nil, account_id: current_account.id).page(params[:page] || 1).per(ISSUE_PER_PAGE)
 
     add_breadcrumbs('プロジェクト未所属', url(:projects, :not_belong))
 

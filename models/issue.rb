@@ -54,12 +54,12 @@ class Issue
     }
   end
 
-  def self.list(account_id, options={})
+  def self.list(project_id, options={})
     default = {
       issue_status_id: 1 # new
     }
     options = default.merge(options)
-    options[:account_id] = account_id unless account_id.nil?
+    options[:project_id] = project_id unless project_id.nil?
 
     all(options)
   end

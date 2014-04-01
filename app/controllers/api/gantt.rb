@@ -7,11 +7,10 @@ Daphne.controllers :api_gantt, map: '/api' do
     end
 
     options = {
-      :scheduled_on.not => nil
+      :scheduled_on.not=> nil
     }
-    options[:project_id] = params[:project_id] if params[:project_id]
-    account_id = (params[:project_id].nil? ? current_account.id : Project.detail(params[:project_id]).account_id)
-    gantt = Issue.list(account_id, options)
+    options[:account_id] = current_account.id if params[:project_id].nil?
+    gantt = Issue.list(params[:project_id], options)
 
     gantt.to_json
   end
