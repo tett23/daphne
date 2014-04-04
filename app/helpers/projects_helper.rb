@@ -20,6 +20,6 @@ Daphne.helpers do
   def concern_projects
     Project.list(current_account.id).to_a + Authority.concerned(current_account.id, [:all, :view]).map do |authority|
       authority.project
-    end.to_a
+    end.to_a.uniq
   end
 end
