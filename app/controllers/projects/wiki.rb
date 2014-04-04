@@ -49,10 +49,21 @@ Daphne.controllers :wiki, :parent=>:projects do
   end
 
   post :update, :with=>:title do
-    @wiki = Wiki.detail(params[:project_id], params[:title])
+    @wiki = Wiki.first(project_id: params[:project_id], title: params[:title])
     has_authority_or_403(@project, :issue)
 
-    if @wiki.update(params[:wiki])
+    result = if @wiki.nil?
+      @wiki = Wiki.create(
+        project_id: params[:project_id],
+        title: params[:title],
+        body: params[:wiki][:body],
+        account_id: current_account.id
+      )
+    else
+      @wiki.update(params[:wiki])
+    end
+
+    if result
       flash[:success] = @wiki.title+'を編集しました'
 
       if @wiki.is_project_index
