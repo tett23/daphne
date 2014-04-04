@@ -10,9 +10,9 @@ Daphne.controllers :comments do
     @comment = Comment.new(params[:comment])
 
     action_selector = if wiki.issue_id.nil?
-      [:issues, :show, id: wiki.issue_id]
-    else
       [:wiki, :show, project_id: wiki.project_id, title: wiki.title]
+    else
+      [:issues, :show, id: wiki.issue_id]
     end
 
     if @comment.save
