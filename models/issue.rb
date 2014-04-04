@@ -72,7 +72,7 @@ class Issue
   def text
     wiki_body = self.wiki.body.strip.gsub(/h1\..+$/, '').strip
     project_title = self.project.title unless self.project.nil?
-
+    project_title = "#{project_title}(#{self.project.account.nickname})" unless project_title.nil?
 
     "#{project_title}#{'#' unless project_title.nil?}#{self.wiki.title}\n\n#{wiki_body}"
   end
