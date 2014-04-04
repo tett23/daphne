@@ -31,6 +31,7 @@ Daphne.controllers :issues do
     @issue[:wiki_id] = wiki.id
 
     if @issue.save
+      wiki.update(issue: @issue)
       flash[:success] = "タスク「#{@issue.title}」を作成しました"
       redirect url(:issues, :show, :id => @issue.id)
     else
