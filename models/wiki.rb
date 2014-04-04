@@ -10,7 +10,11 @@ class Wiki
   belongs_to :issue, :required=>false
   belongs_to :project, :required=>false
 
+  before :create, :force_encoding
+  before :save, :force_encoding
+
   def self.detail(project_id, title)
+    title = title.force_encoding('UTF-8')
     first_or_create(
       project_id: project_id,
       title: title
@@ -66,5 +70,10 @@ class Wiki
 
   def outline
     self.body.strip.gsub(/h1\..+$/, '').strip
+  end
+
+  def force_encoding
+    self.body = self.body.force_encoding('UTF-8') unless self.body.nil?
+    self.title = self.title.force_encoding('UTF-8') unless self.title.nil?
   end
 end
