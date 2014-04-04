@@ -18,7 +18,7 @@ Daphne.helpers do
         line = line.gsub(/\[\[(.+?)\]\]/) do |title|
           title.gsub!(/[\[\]]/, '')
 
-          is_wiki_exist = Wiki.exist?(current_account.id, project_id, title)
+          is_wiki_exist = Wiki.exist?(project_id, title)
 
           "<a href='/projects/#{project_id}/wiki/#{title}' class='#{'new' unless is_wiki_exist}'>#{title}</a>"
         end
