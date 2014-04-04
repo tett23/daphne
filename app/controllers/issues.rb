@@ -13,6 +13,8 @@ Daphne.controllers :issues do
     has_authority_or_403(@issue.project, :issue)
     @comments = Comment.list(@issue.wiki.id)
 
+    @issue.wiki.update(issue: @issue)
+
     unless @issue.project.blank?
       add_breadcrumbs(@issue.project.title, url(:projects, :show, :id=>@issue.project.id))
     else
