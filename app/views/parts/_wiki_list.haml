@@ -1,0 +1,5 @@
+-# coding: utf-8
+
+%ul
+  -wikis.each do |wiki|
+    %li=link_to wiki.title, url(:wiki, :show, project_id: wiki.project_id, title: wiki.title)
