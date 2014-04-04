@@ -1,0 +1,14 @@
+-# coding: utf-8
+
+-if comments.nil? || comments.size.zero?
+  %p コメントはありません
+  -return
+
+%ul.comment
+  -comments.each do |comment|
+    %li.comment-item
+      =wiki_format comment.body
+      .comment-information
+        =show_date(comment.created_at)
+        =comment.account.name
+

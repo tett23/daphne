@@ -41,3 +41,27 @@ article.wiki.issue h1 {
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065); }
+
+.wiki.issue.comment-form {
+  margin-top: 30px; }
+  .wiki.issue.comment-form textarea {
+    width: 80%;
+    height: 200px; }
+
+.wiki.issue.comment-list {
+  margin-top: 30px; }
+  .wiki.issue.comment-list ul.comment {
+    margin: 10px 0 10px 0;
+    list-style-type: none; }
+  .wiki.issue.comment-list li.comment-item {
+    margin: 20px 0 20px 0;
+    border-bottom: 1px dotted black;
+    padding-bottom: 10px; }
+    .wiki.issue.comment-list li.comment-item:first-child {
+      margin-top: 0; }
+    .wiki.issue.comment-list li.comment-item:last-child {
+      border: none;
+      margin-bottom: 0; }
+    .wiki.issue.comment-list li.comment-item .comment-information {
+      text-align: right;
+      font-size: 80%; }

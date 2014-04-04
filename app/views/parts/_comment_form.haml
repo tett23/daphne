@@ -1,0 +1,10 @@
+-# coding: utf-8
+
+-return unless has_authority?(wiki.project, :all) || has_authority?(wiki.project, :issue)
+
+-form_for :comment, url(:comments, :create), method: :post do |f|
+  %section
+    =f.text_area :body
+  %section
+    =f.hidden_field :wiki_id, value: wiki.id
+    =f.submit pat(:save), :class => 'btn btn-primary'

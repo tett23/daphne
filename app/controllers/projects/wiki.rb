@@ -26,8 +26,9 @@ Daphne.controllers :wiki, :parent=>:projects do
     render 'wiki/list'
   end
 
-  get :show, :map=>'/projects/:project_id/wiki/:title', :priority => :low do
-    @wiki = Wiki.detail(@project.account_id, params[:project_id], params[:title])
+  get :show, :map=>'/projects/:project_id/wiki/:title' do
+    @wiki = Wiki.detail(params[:project_id], params[:title])
+    @comments = Comment.list(@wiki.id)
 
     add_breadcrumbs(@wiki.project.title, url(:projects, :show, :id=>@wiki.project.id))
     add_breadcrumbs('wiki', url(:wiki, :index, :project_id=>@wiki.project.id))
@@ -37,7 +38,7 @@ Daphne.controllers :wiki, :parent=>:projects do
   end
 
   get :edit, :map=>'/projects/:project_id/wiki/:title/edit' do
-    @wiki = Wiki.detail(@project.account_id, params[:project_id], params[:title])
+    @wiki = Wiki.detail(params[:project_id], params[:title])
     has_authority_or_403(@project, :issue)
 
     add_breadcrumbs(@wiki.project.title, url(:projects, :show, :id=>@wiki.project.id))
@@ -48,7 +49,7 @@ Daphne.controllers :wiki, :parent=>:projects do
   end
 
   post :update, :with=>:title do
-    @wiki = Wiki.detail(@project.account_id, params[:project_id], params[:title])
+    @wiki = Wiki.detail(params[:project_id], params[:title])
     has_authority_or_403(@project, :issue)
 
     if @wiki.update(params[:wiki])

@@ -10,9 +10,8 @@ class Wiki
   belongs_to :issue, :required=>false
   belongs_to :project, :required=>false
 
-  def self.detail(account_id, project_id, title)
+  def self.detail(project_id, title)
     first_or_create(
-      account_id: account_id,
       project_id: project_id,
       title: title
     )

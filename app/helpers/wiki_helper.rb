@@ -27,4 +27,17 @@ Daphne.helpers do
       line
     end.join()
   end
+
+  def show_date(date)
+    return '' if date.nil?
+    date.strftime('%Y-%m-%d(%a)')
+  end
+
+  def wiki_index?
+    params[:title] == 'list'
+  end
+
+  def all_wiki_pages
+    Wiki.list(get_project.id)
+  end
 end

@@ -3,6 +3,7 @@
 Daphne.helpers do
   def has_authority?(project, privilege, account=nil)
     account ||= current_account
+    return true if project.nil?
     return true if project_owner?(project, account)
     return true if Authority.allow_everyone_access?(project.id, privilege)
 
@@ -19,7 +20,7 @@ Daphne.helpers do
   end
 
   def has_authority_or_403(project, authority, account=nil)
-    error 403 if project.nil?
+    return true if project.nil?
     error 403 unless has_authority?(project, authority, account)
   end
 end

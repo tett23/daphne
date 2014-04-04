@@ -11,6 +11,7 @@ Daphne.controllers :issues do
   get :show, :with=>:id do |id|
     @issue = Issue.detail(id)
     has_authority_or_403(@issue.project, :issue)
+    @comments = Comment.list(@issue.wiki.id)
 
     unless @issue.project.blank?
       add_breadcrumbs(@issue.project.title, url(:projects, :show, :id=>@issue.project.id))

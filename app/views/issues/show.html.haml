@@ -11,3 +11,9 @@
     =wiki_format wiki_body
     .pull-right.issue-infomation
       =show_issue_schedule(@issue)
+
+%section.wiki.issue.comment-list.row
+  %h2 comments
+  =partial 'parts/comment_list', locals: {comments: @comments}
+%section.wiki.issue.comment-form.row
+  =partial 'parts/comment_form', locals: {wiki: @issue.wiki}
