@@ -60,9 +60,8 @@ class Wiki
     ).nil?
   end
 
-  def self.list(account_id, project_id)
+  def self.list(project_id)
     all(
-      account_id: account_id,
       project_id: project_id
     )
   end
