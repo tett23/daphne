@@ -3,5 +3,5 @@
 .pull-right
   .btn-toolbar
     .btn-group
-      =button_link '', url(:wiki, :edit, :project_id=>wiki.project.id, :title=>wiki.title), {:icon=>'icon-pencil'}
-      =button_link '', url(:wiki, :list, :project_id=>wiki.project.id), {:icon=>'icon-list'}
+      =button_link '', url(:wiki, :edit, :project_id=>wiki.project_id, :title=>wiki.title), {:icon=>'icon-pencil'}
+      =button_link '', url(:wiki, :list, :project_id=>wiki.project_id), {:icon=>'icon-list'}
