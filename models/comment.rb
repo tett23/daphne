@@ -10,6 +10,6 @@ class Comment
   belongs_to :account, required: false
 
   def self.list(wiki_id)
-    all(wiki_id: wiki_id)
+    all(wiki_id: wiki_id, order: [:created_at.desc, :id.desc])
   end
 end
